@@ -31,6 +31,9 @@
         $stmt->bindParam(':imgData', $imgData);
 
         $stmt->execute();
+
+        // Close file db connection
+        $file_db = null;
     catch(PDOException $e) {
     // Print PDOException message
     echo $e->getMessage();
