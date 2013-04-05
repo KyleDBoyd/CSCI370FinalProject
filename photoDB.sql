@@ -5,22 +5,22 @@ Final Project */
 
 /* Drop Tables Before Creating */
 
-drop table user;
-drop table photographer;
-drop table group;
-drop table album;
-drop table photo;
-drop table location;
-drop table userHasPhoto;
-drop table userPermissionsPhoto;
-drop table photographerTakePhoto;
-drop table photographerFrequentLocation;
-drop table photoTakenAtLocation;
-drop table userCreateAlbum;
-drop table groupHasUser;
-drop table groupHasPermissionAlbum;
-drop table groupHasPermissionPhoto;
-drop table albumHasPhoto;
+drop table if exists user;
+drop table if exists photographer;
+drop table if exists photoGroup;
+drop table if exists album;
+drop table if exists photo;
+drop table if exists location;
+drop table if exists userHasPhoto;
+drop table if exists userPermissionsPhoto;
+drop table if exists photographerTakePhoto;
+drop table if exists photographerFrequentLocation;
+drop table if exists photoTakenAtLocation;
+drop table if exists userCreateAlbum;
+drop table if exists groupHasUser;
+drop table if exists groupHasPermissionAlbum;
+drop table if exists groupHasPermissionPhoto;
+drop table if exists albumHasPhoto;
 
 create table user (
     userId TEXT primary key,
@@ -41,7 +41,7 @@ create table photographer (
     FOREIGN KEY(photographerID) REFERENCES user(userID)    
 );
 
-create table group (
+create table photoGroup (
     groupID INTEGER primary key AUTOINCREMENT,
     name TEXT,
     leader TEXT,
@@ -51,14 +51,14 @@ create table group (
 );
 
 create table album (
-    albumId INTEGER AUTOINCREMENT,
+    albumId INTEGER primary key AUTOINCREMENT,
     type TEXT,
     name TEXT,
     dateCreated NUMERIC
 );
 
 create table photo (
-    photoID INTEGER AUTOINCREMENT,
+    photoID INTEGER primary key AUTOINCREMENT,
     type TEXT,
     genre TEXT,
     name TEXT,
@@ -68,7 +68,7 @@ create table photo (
 );
 
 create table location (
-    locationId INTEGER AUTOINCREMENT,
+    locationId INTEGER primary key AUTOINCREMENT,
     type TEXT,
     address TEXT,
     country TEXT
@@ -100,7 +100,7 @@ create table photographerFrequentLocation (
     locationID INTEGER,
     FOREIGN KEY(photographerID) REFERENCES photographer(photographerID),
     FOREIGN KEY(locationID) REFERENCES location(locationID)
-)
+);
 
 create table photoTakenAtLocation (
     photoId INTEGER,
@@ -120,13 +120,13 @@ create table groupHasUser (
     groupID INTEGER,
     userID INTEGER,
     FOREIGN KEY(userID) REFERENCES user(userID),
-    FOREIGN KEY(groupID) REFERENCES group(groupID)
+    FOREIGN KEY(groupID) REFERENCES photoGroup(groupID)
 );
 
 create table groupHasPermissionAlbum (
     groupID INTEGER,
     albumID INTEGER,
-    FOREIGN KEY(groupID) REFERENCES group(groupID),
+    FOREIGN KEY(groupID) REFERENCES photoGroup(groupID),
     FOREIGN KEY(albumID) REFERENCES album(albumID)
 );
 
@@ -134,12 +134,12 @@ create table groupHasPermissionPhoto (
     photoId INTEGER,
     groupID INTEGER,
     FOREIGN KEY(photoID) REFERENCES photo(photoID),
-    FOREIGN KEY(groupID) REFERENCES group(groupID)
+    FOREIGN KEY(groupID) REFERENCES photoGroup(groupID)
 );
 
 create table albumHasPhoto (
     albumID INTEGER,
     groupID INTEGER,
     FOREIGN KEY(albumID) REFERENCES album(albumID),
-    FOREIGN KEY(groupID) REFERENCES group(groupID)
+    FOREIGN KEY(groupID) REFERENCES photoGroup(groupID)
 );
