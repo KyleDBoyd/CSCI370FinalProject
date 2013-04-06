@@ -12,14 +12,14 @@
         $file_db->setAttribute(PDO::ATTR_ERRMODE, 
                                 PDO::ERRMODE_EXCEPTION);
 
-        $type = $_POST['type'];
         $genre = $_POST['genre'];
         $name = $_POST['name'];
-        $date = $_POST['date'];
         $imgType = $_POST['imgType'];
         $imgData = $_POST['imgData'];  
 
-        $insert = "INSERT INTO photo (type, genre, name, date, imgType, imgData)
+        // $date = Add get current date function here
+
+        $insert = "INSERT INTO photo (genre, name, date, imgType, imgData)
                     VALUES (:type, :genre, :name, :date, :imgType, :imgData)";
         $stmt = $file_db->prepare($insert);
 
@@ -39,5 +39,6 @@
     echo $e->getMessage();
     }
 ?>
+<a href="index.php">Back to Home</a>
 </body>
 </html>

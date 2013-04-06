@@ -28,6 +28,8 @@
 	$count = $stmt->rowCount();
         if ($count > 0) { 
 	         $_SESSION['loggedin'] = true;
+             // Close file db connection
+             $file_db = null;
 	         header("Location: index.php");
         };
         // Close file db connection

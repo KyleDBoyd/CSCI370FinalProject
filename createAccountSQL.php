@@ -12,32 +12,47 @@
         $file_db->setAttribute(PDO::ATTR_ERRMODE, 
                                 PDO::ERRMODE_EXCEPTION);
 
-        $type = $_POST['type'];
-        $genre = $_POST['genre'];
+        $userID = $_POST['userID'];
+        $password = $_POST['password'];
         $name = $_POST['name'];
-        $date = $_POST['date'];
-        $imgType = $_POST['imgType'];
-        $imgData = $_POST['imgData'];  
+        $dateJoined = null;
+        $profilePicData = null;
+        $gender = $_POST['genderGroup'];
+        $favoriteGenre = $_POST['favoriteGenre'];
+        $country = $_POST['country']; 
 
-        $insert = "INSERT INTO photo (type, genre, name, date, imgType, imgData)
-                    VALUES (:type, :genre, :name, :date, :imgType, :imgData)";
+        if(empty($userid) || empty($password) || empty($name) || empty($gender) || empty($favoriteGenre) || empty($country)){
+            // Close file db connection
+            $file_db = null;
+            header("Location: createAccountInvalid.html");
+        };
+
+        // $dateJoined = Add get current date function here 
+
+        $insert = "INSERT INTO user (userID, password, name, dateJoined, gender, profilePicData, favoriteGenre, country)
+                    VALUES(:userID, :password, :name, :dateJoined, :gender, :profilePicData, :favoriteGenre, :country)";
         $stmt = $file_db->prepare($insert);
 
-        $stmt->bindParam(':type', $type);
-        $stmt->bindParam(':genre', $genre);
+        $stmt->bindParam(':userID', $userID);
+        $stmt->bindParam(':password', $password);
         $stmt->bindParam(':name', $name);
-        $stmt->bindParam(':date', $date);
-        $stmt->bindParam(':imgType', $imgType);
-        $stmt->bindParam(':imgData', $imgData);
+        $stmt->bindParam(':dateJoined', $dateJoined);
+        $stmt->bindParam(':gender', $gender);
+        $stmt->bindParam(':profilePicData', $profilePicData);
+        $stmt->bindParam(':favoriteGenre', $favoriteGenre;
+        $stmt->bindParam(':country', $country);
 
         $stmt->execute();
 
         // Close file db connection
         $file_db = null;
+        echo "Account created sucessfully. <br />";
+        
     catch(PDOException $e) {
     // Print PDOException message
     echo $e->getMessage();
     }
 ?>
+<a href="login.html">Back to Login</a>
 </body>
 </html>
