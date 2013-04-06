@@ -7,7 +7,7 @@
 
     try {
         // Create (connect to) SQLite database in file
-        $file_db = new PDO('sqlite:messaging.sqlite3');
+        $file_db = new PDO('sqlite:photos');
         // Set errormode to exceptions
         $file_db->setAttribute(PDO::ATTR_ERRMODE, 
                                 PDO::ERRMODE_EXCEPTION);
