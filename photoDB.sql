@@ -29,7 +29,6 @@ create table user (
     dateJoined NUMERIC,
     gender TEXT,
     profilePicData TEXT, 
-    favoritePhotoType TEXT,
     favoriteGenre TEXT,
     country TEXT
 );
@@ -59,7 +58,6 @@ create table album (
 
 create table photo (
     photoID INTEGER primary key AUTOINCREMENT,
-    type TEXT,
     genre TEXT,
     name TEXT,
     date NUMERIC,
