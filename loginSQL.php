@@ -25,7 +25,7 @@
         $stmt->bindParam(':userID', $userID);
         $stmt->bindParam(':password', $password);
         $stmt->execute();
-	$count = $stmt->rowCount();
+	    $count = $stmt->rowCount();
         if ($count > 0) { 
 	         $_SESSION['loggedin'] = true;
              // Close file db connection
@@ -37,7 +37,6 @@
 
         if(!$_SESSION['loggedin']){
             header("Location: login.html");
-            exit;
         };
     }
     catch(PDOException $e) {

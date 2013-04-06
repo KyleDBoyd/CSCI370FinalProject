@@ -17,16 +17,12 @@
         $imgType = $_POST['imgType'];
         $imgData = $_POST['imgData'];  
 
-        // $date = Add get current date function here
-
         $insert = "INSERT INTO photo (genre, name, date, imgType, imgData)
-                    VALUES (:type, :genre, :name, :date, :imgType, :imgData)";
+                    VALUES (:genre, :name, datetime(), :imgType, :imgData)";
         $stmt = $file_db->prepare($insert);
 
-        $stmt->bindParam(':type', $type);
         $stmt->bindParam(':genre', $genre);
         $stmt->bindParam(':name', $name);
-        $stmt->bindParam(':date', $date);
         $stmt->bindParam(':imgType', $imgType);
         $stmt->bindParam(':imgData', $imgData);
 
