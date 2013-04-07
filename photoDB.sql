@@ -64,6 +64,7 @@ create table photo (
     date NUMERIC,
     imgName TEXT,
     imgType TEXT,
+    imgPath TEXT,
     imgSize INTEGER   
 );
 

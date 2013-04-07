@@ -14,44 +14,42 @@
 
         $genre = $_POST['genre'];
         $name = $_POST['name'];
-        $allowedExts = array("gif", "jpeg", "jpg", "png");
-        $extension = end(explode(".", $_FILES["file"]["name"]));
-        if ((($_FILES["file"]["type"] == "image/gif")
-        || ($_FILES["file"]["type"] == "image/jpeg")
-        || ($_FILES["file"]["type"] == "image/jpg")
-        || ($_FILES["file"]["type"] == "image/png"))
-        && ($_FILES["file"]["size"] < 20000)
-        && in_array($extension, $allowedExts))
-        {
-            if ($_FILES["file"]["error"] > 0)
-            {
+        
+        // need to add extra error checks
+
+            if ($_FILES["file"]["error"] > 0){
+                $file_db = null;
                 header("Location: insertPhotoError.html");
             }else{
-            echo "Upload: " . $_FILES["file"]["name"] . "<br>";
-            echo "Type: " . $_FILES["file"]["type"] . "<br>";
-            echo "Size: " . ($_FILES["file"]["size"] / 1024) . " kB<br>";
-            echo "Stored in: " . $_FILES["file"]["tmp_name"];
+                $imgName = $_FILES["file"]["name"];
+                $imgType = $_FILES["file"]["type"];
+                $imgSize = ($_FILES["file"]["size"] / 1024);
+                $imgPath = "images/" . $imgName;
+                // move image into folder
+                move_uploaded_file($_FILES["file"]["tmp_name"], $imgPath);
             }
-        }
-        else{
-            header("Location: insertPhotoError.html");
-        }
-        $imgType = $_POST['imgType'];
-        $imgData = $_POST['imgData'];  
+            
+        $insert = "INSERT INTO photo (genre, name, date, imgName, imgType, imgPath, imgSize)
+                    VALUES(:genre, :name, datetime(), :imgName, :imgType, :imgPath, :imgSize)";
 
-        $insert = "INSERT INTO photo (genre, name, date, imgType, imgData)
-                    VALUES (:genre, :name, datetime(), :imgType, :imgData)";
         $stmt = $file_db->prepare($insert);
-
+        
         $stmt->bindParam(':genre', $genre);
         $stmt->bindParam(':name', $name);
+        $stmt->bindParam(':imgName', $imgName);
         $stmt->bindParam(':imgType', $imgType);
-        $stmt->bindParam(':imgData', $imgData);
+        $stmt->bindParam(':imgPath', $imgPath);
+        $stmt->bindParam(':imgSize', $imgSize);
 
         $stmt->execute();
 
+        // Need to insert into userHasPhoto and userPermissionsPhoto
+
+        echo "Image inserted sucessfully <br/>";
+
         // Close file db connection
         $file_db = null;
+    }
     catch(PDOException $e) {
     // Print PDOException message
     echo $e->getMessage();
