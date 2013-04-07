@@ -26,27 +26,15 @@
         $stmt->bindParam(':password', $password);
         $stmt->execute();
         if ($stmt->fetch()) { 
-	         $_SESSION['loggedin'] = true;
-             // Close file db connection
-             $file_db = null;
-	         header("Location: index.php");
+	        $_SESSION['loggedin'] = true;
+            //Pass Variable to session
+            $_SESSION['userID'] = $userID;
+            // Close file db connection
+            $file_db = null;
+	        header("Location: index.php");
         }
         // Close file db connection
         $file_db = null;
-
-
-        //Pass Variable to session
-        $_SESSION['userID'] = $userID;
-
-        if(!$_SESSION['loggedin']){
-            header("Location: login.html");
-        };
-
-
-        if(!($_SESSION['loggedin'])){
-            header("Location: invalidLogin.html");
-        }
-
 
         if(!($_SESSION['loggedin'])){
             header("Location: invalidLogin.html");
