@@ -81,13 +81,13 @@ create table userHasPhoto (
 );
 
 create table userPermissionsPhoto (
-    userID INTEGER,
+    userID TEXT,
     photoId INTEGER,
     FOREIGN KEY(userID) REFERENCES user(userID),  
     FOREIGN KEY(photoID) REFERENCES photo(photoID)   
 );
 create table userPermissionsAlbum (
-    userID INTEGER,
+    userID TEXT,
     albumID INTEGER,
     FOREIGN KEY(userID) REFERENCES user(userID),  
     FOREIGN KEY(albumID) REFERENCES album(albumID)   
@@ -115,7 +115,7 @@ create table photoTakenAtLocation (
 );
 
 create table userCreateAlbum (
-    userID INTEGER,
+    userID TEXT,
     albumID INTEGER,
     FOREIGN KEY(userID) REFERENCES user(userID),
     FOREIGN KEY(albumID) REFERENCES album(albumID)
@@ -123,7 +123,7 @@ create table userCreateAlbum (
 
 create table groupHasUser (
     groupID INTEGER,
-    userID INTEGER,
+    userID TEXT,
     FOREIGN KEY(userID) REFERENCES user(userID),
     FOREIGN KEY(groupID) REFERENCES photoGroup(groupID)
 );
