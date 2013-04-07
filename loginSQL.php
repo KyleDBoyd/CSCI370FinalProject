@@ -35,6 +35,9 @@
         // Close file db connection
         $file_db = null;
 
+        //Pass Variable to session
+        $_SESSION['userID'] = $userID;
+
         if(!$_SESSION['loggedin']){
             header("Location: login.html");
         };
