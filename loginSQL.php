@@ -25,22 +25,27 @@
         $stmt->bindParam(':userID', $userID);
         $stmt->bindParam(':password', $password);
         $stmt->execute();
-	    $count = $stmt->rowCount();
-        if ($count > 0) { 
+        if ($stmt->fetch()) { 
 	         $_SESSION['loggedin'] = true;
              // Close file db connection
              $file_db = null;
-	         header("Location: index.php");
-        };
+	         header("Location: index.html");
+        }
         // Close file db connection
         $file_db = null;
 
+<<<<<<< HEAD
         //Pass Variable to session
         $_SESSION['userID'] = $userID;
 
         if(!$_SESSION['loggedin']){
             header("Location: login.html");
         };
+=======
+        if(!($_SESSION['loggedin'])){
+            header("Location: invalidLogin.html");
+        }
+>>>>>>> 3943060bd056b7580d392401443f877bb9e11743
     }
     catch(PDOException $e) {
     // Print PDOException message

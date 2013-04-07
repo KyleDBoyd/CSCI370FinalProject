@@ -51,7 +51,7 @@
     echo $e->getMessage();
     }
 ?>
-
+<a href="login.html">Back to login</a>
 <br/>
 </body>
 </html>
