@@ -31,11 +31,12 @@
      
                 $result = mysqli_query($file_db, $insert);
                 $row = mysqli_fetch_array($result, MYSQLI_NUM);
+                $i = 0;
 
-                while($row) {            
+                while($row[$i]) {            
 
-                    $html .= '<option value=' .$value.'>'.$row.'</option>';
-
+                    $html .= '<option value=' .$value.'>'.$row[$i].'</option>';
+                    $i++;
                 }
 
             } elseif($queryType == 2) {
@@ -49,11 +50,12 @@
 
                 $result = mysqli_query($file_db, $insert);
                 $row = mysqli_fetch_array($result, MYSQLI_NUM);
+                $i = 0;
 
-                while($row) {            
+                while($row[$i]) {            
 
                     $html .= '<option value=' .$value.'>'.$row.'</option>';
-
+                    $i++;
                 }
             }
             
