@@ -3,7 +3,7 @@
 <title>Delete Photo</title>
 </head>
 <body>
-<form action="deletePhotoSQL.php method="post">
+<form action="deletePhotoSQL.php" method="post">
 <?php
     
     try{
@@ -23,7 +23,7 @@
         echo "Select photo to delete from database. <br/>";
 
         
-        $stmt = $file_db->prepare('SELECT name from photo');
+        $stmt = $file_db->prepare('SELECT name FROM photo');
         $result = $stmt->execute();
     }
     catch(PDOException $e) {
@@ -34,11 +34,11 @@
 <select name="name" id="name">
 <?php
     while($row = $result->fetchArray()){
-        $photoName = $row['name'];
-    }
+        $photoName = $row["name"];
 ?>
 <option value="<?= $photoName; ?>"><?= $photoName; ?></option>
 <?php
+    }
     $file_db = null;
 ?>
 </select>
