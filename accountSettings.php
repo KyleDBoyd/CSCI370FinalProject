@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>Inserting Photo</title>
+<title>Account Settings</title>
 </head>
 <body>
 <?php
@@ -14,29 +14,10 @@
         $file_db->setAttribute(PDO::ATTR_ERRMODE, 
                                 PDO::ERRMODE_EXCEPTION);
 
-        $userID = $_POST['userID'];
-        $password = $_POST['password'];
-  
-        $stmt = $file_db->prepare('SELECT *                                     
-                                   FROM user
-                                   WHERE :userID = userID 
-                                   AND :password = password');
 
-        $stmt->bindParam(':userID', $userID);
-        $stmt->bindParam(':password', $password);
-        $stmt->execute();
-        if ($stmt->fetch()) { 
-	         $_SESSION['loggedin'] = true;
-             // Close file db connection
-             $file_db = null;
-	         header("Location: index.php");
-        }
         // Close file db connection
         $file_db = null;
 
-
-        //Pass Variable to session
-        $_SESSION['userID'] = $userID;
 
         if(!$_SESSION['loggedin']){
             header("Location: login.html");
@@ -58,5 +39,22 @@
     echo $e->getMessage();
     }
 ?>
+
+    
+    <form action="changePasswordSQL.php" method="post">
+        Change Password
+        <br/>
+        <br/>
+        Old Password:<input name="oldPassword" type="password" />
+        New Password:<input name="newPassword" type="password" />
+        <input type="submit"/>
+    </form>
+    <a href="changeProfilePicSQL.php">Change Profile Picture</a>
+    <br/>
+    <br/>
+    <a href="index.php">Home Page</a>
+    <br/>
+    <a href="logout.php">Log Out</a>
+
 </body>
 </html>

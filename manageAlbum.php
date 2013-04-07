@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>Inserting Photo</title>
+<title>Manage Album</title>
 </head>
 <body>
 <?php
@@ -14,23 +14,8 @@
         $file_db->setAttribute(PDO::ATTR_ERRMODE, 
                                 PDO::ERRMODE_EXCEPTION);
 
-        $userID = $_POST['userID'];
-        $password = $_POST['password'];
-  
-        $stmt = $file_db->prepare('SELECT *                                     
-                                   FROM user
-                                   WHERE :userID = userID 
-                                   AND :password = password');
+   
 
-        $stmt->bindParam(':userID', $userID);
-        $stmt->bindParam(':password', $password);
-        $stmt->execute();
-        if ($stmt->fetch()) { 
-	         $_SESSION['loggedin'] = true;
-             // Close file db connection
-             $file_db = null;
-	         header("Location: index.php");
-        }
         // Close file db connection
         $file_db = null;
 

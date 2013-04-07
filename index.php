@@ -17,6 +17,9 @@
 
         function generateSelect($userID, $name, $queryType) {
 
+            // Create (connect to) SQLite database in file
+            $file_db = new PDO('sqlite:photos');
+
             $html = '<select name="'.$name.'">';
 
             if($queryType == 1) {
@@ -29,8 +32,10 @@
                                      WHERE :userID = userID)
                                ORDER by dateCreated';
      
-                $result = mysqli_query($file_db, $insert);
-                $row = mysqli_fetch_array($result, MYSQLI_NUM);
+                $stmt = $file_db->prepare($insert);
+                $stmt->bindParam(':userID', $userID);
+                $stmt->execute(array(1));
+                $row = $stmt->fetch();
                 $i = 0;
 
                 while($row[$i]) {            
@@ -48,8 +53,10 @@
                                      FROM groupHasUser
                                      WHERE :userID = userID)';             
 
-                $result = mysqli_query($file_db, $insert);
-                $row = mysqli_fetch_array($result, MYSQLI_NUM);
+                $stmt = $file_db->prepare($insert);
+                $stmt->bindParam(':userID', $userID);
+                $stmt->execute(array(1));
+                $row = $stmt->fetch();
                 $i = 0;
 
                 while($row[$i]) {            
@@ -74,8 +81,9 @@
     };
 
 ?>
-    <a href="InsertPhotoSQL.php">Manage Photos Page</a>
-
+    <a href="InsertPhotoSQL.php">Manage Photos</a>
+    </br>
+    </br>
     <form action="ManageAlbum.php" method="post">
         Album Name
 <?php
@@ -112,8 +120,8 @@
     <input type="submit"/>
     </form>
 
-    <a href="AccountSettings.php">Account Settings</a>
-   
+    <a href="accountSettings.php">Account Settings</a>
+    <br/>
     <br/>
     <a href="logout.php">Log Out</a>
 
