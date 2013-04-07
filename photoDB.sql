@@ -13,6 +13,7 @@ drop table if exists photo;
 drop table if exists location;
 drop table if exists userHasPhoto;
 drop table if exists userPermissionsPhoto;
+drop table if exists userPermissionsAlbum;
 drop table if exists photographerTakePhoto;
 drop table if exists photographerFrequentLocation;
 drop table if exists photoTakenAtLocation;
@@ -23,7 +24,7 @@ drop table if exists groupHasPermissionPhoto;
 drop table if exists albumHasPhoto;
 
 create table user (
-    userId TEXT primary key,
+    userID TEXT primary key,
     password TEXT,
     name TEXT,
     dateJoined NUMERIC,
@@ -50,7 +51,7 @@ create table photoGroup (
 );
 
 create table album (
-    albumId INTEGER primary key AUTOINCREMENT,
+    albumID INTEGER primary key AUTOINCREMENT,
     type TEXT,
     name TEXT,
     dateCreated NUMERIC
@@ -61,8 +62,9 @@ create table photo (
     genre TEXT,
     name TEXT,
     date NUMERIC,
+    imgName TEXT,
     imgType TEXT,
-    imgData TEXT
+    imgSize INTEGER   
 );
 
 create table location (
@@ -84,6 +86,12 @@ create table userPermissionsPhoto (
     photoId INTEGER,
     FOREIGN KEY(userID) REFERENCES user(userID),  
     FOREIGN KEY(photoID) REFERENCES photo(photoID)   
+);
+create table userPermissionsAlbum (
+    userID INTEGER,
+    albumID INTEGER,
+    FOREIGN KEY(userID) REFERENCES user(userID),  
+    FOREIGN KEY(albumID) REFERENCES album(albumID)   
 );
 
 create table photographerTakePhoto (
