@@ -23,8 +23,7 @@
         echo "Select photo to delete from database. <br/>";
 
         
-        $stmt = $file_db->prepare('SELECT name FROM photo');
-        $result = $stmt->execute();
+        $result = $file_db->query('SELECT name FROM photo');
     }
     catch(PDOException $e) {
     // Print PDOException message
@@ -33,8 +32,8 @@
 ?>
 <select name="name" id="name">
 <?php
-    while($row = $result->fetchArray()){
-        $photoName = $row["name"];
+    foreach($result as $row){
+        $photoName = $row['name'];  
 ?>
 <option value="<?= $photoName; ?>"><?= $photoName; ?></option>
 <?php

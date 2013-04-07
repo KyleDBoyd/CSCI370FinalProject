@@ -24,7 +24,7 @@
         // Close file db connection
         $file_db = null;
         echo "Picture Deleted sucessfully. <br />";
-        }
+        
     } 
     catch(PDOException $e) {
     // Print PDOException message
