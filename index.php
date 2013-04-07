@@ -34,8 +34,7 @@
      
                 $stmt = $file_db->prepare($insert);
                 $stmt->bindParam(':userID', $userID);
-                $stmt->execute(array(1));
-                $row = $stmt->fetch();
+                $row = $stmt->execute();
                 $i = 0;
 
                 while($row[$i]) {            
@@ -84,7 +83,7 @@
     <a href="InsertPhotoSQL.php">Manage Photos</a>
     </br>
     </br>
-    <form action="ManageAlbum.php" method="post">
+    <form action="manageAlbum.php" method="post">
         Album Name
 <?php
         try {        
@@ -99,8 +98,14 @@
 ?>
         <input type="submit"/>
     </form>
-
-    <form action="ManageGroup.php" method="post">
+    <form action="createGroup.php" method="post">
+    Create Group <br/>
+    Group Name:<input name ="groupName" type ="text" />
+    <input type="submit"/>
+    </form>
+    <form action="manageGroup.php" method="post">
+        Manage Group 
+        <br/> 
         Group Name
 <?php
         try{
