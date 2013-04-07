@@ -45,9 +45,7 @@ create table photoGroup (
     groupID INTEGER primary key AUTOINCREMENT,
     name TEXT,
     leader TEXT,
-    type TEXT,
     size INTEGER,
-    groupPictureData TEXT
 );
 
 create table album (
