@@ -8,66 +8,25 @@
         //Start session
         session_start();
         //Use session to grab variable from login page
-        $userID = $_SESSION['userID']; 
+        $userID = $_SESSION['userID'];
+        if(!$userID) {
+            echo "No present user.";
+        }
         // Create (connect to) SQLite database in file
         $file_db = new PDO('sqlite:photos');
         // Set errormode to exceptions
         $file_db->setAttribute(PDO::ATTR_ERRMODE, 
                                 PDO::ERRMODE_EXCEPTION);
 
-        function generateSelect($userID, $name, $queryType) {
+        $stmt = $file_db->prepare('SELECT name      
+                          FROM photoGroup
+                          WHERE groupID in 
+                               (SELECT groupID
+                                FROM groupHasUser
+                                WHERE :userID = userID)');
 
-            // Create (connect to) SQLite database in file
-            $file_db = new PDO('sqlite:photos');
-
-            $html = '<select name="'.$name.'">';
-
-            if($queryType == 1) {
-
-                $insert = 'SELECT name 
-                               FROM album
-                               WHERE albumID in 
-                                    (SELECT albumID
-                                     FROM userCreateAlbum
-                                     WHERE :userID = userID)
-                               ORDER by dateCreated';
-     
-                $stmt = $file_db->prepare($insert);
-                $stmt->bindParam(':userID', $userID);
-                $row = $stmt->execute();
-                $i = 0;
-
-                while($row[$i]) {            
-
-                    $html .= '<option value=' .$value.'>'.$row[$i].'</option>';
-                    $i++;
-                }
-
-            } elseif($queryType == 2) {
-
-                    $insert = 'SELECT name                                    
-                               FROM photoGroup
-                               WHERE groupID in 
-                                    (SELECT groupID
-                                     FROM groupHasUser
-                                     WHERE :userID = userID)';             
-
-                $stmt = $file_db->prepare($insert);
-                $stmt->bindParam(':userID', $userID);
-                $stmt->execute(array(1));
-                $row = $stmt->fetch();
-                $i = 0;
-
-                while($row[$i]) {            
-
-                    $html .= '<option value=' .$value.'>'.$row.'</option>';
-                    $i++;
-                }
-            }
-            
-            $html .= '</select>';
-            return $html;
-        }
+        $stmt->bindParam(':userID', $userID);
+        $groupResult = $stmt->execute();
     }
 
     catch(PDOException $e) {
@@ -83,46 +42,27 @@
     <a href="InsertPhotoSQL.php">Manage Photos</a>
     </br>
     </br>
-    <form action="manageAlbum.php" method="post">
-        Album Name
-<?php
-        try {        
-        $html = generateSelect($userID, 'Albums', 1);
-        echo $html;
-        }
 
-        catch(PDOException $e) {
-            // Print PDOException message
-            echo $e->getMessage();
-        }
-?>
-        <input type="submit"/>
-    </form>
+    
     <form action="createGroup.php" method="post">
     Create Group <br/>
     Group Name:<input name ="groupName" type ="text" />
     <input type="submit"/>
     </form>
-    <form action="manageGroup.php" method="post">
-        Manage Group 
-        <br/> 
-        Group Name
+
+    <form action="manageGroup.sql" method="POST">
+    <select name="name" id="name">
 <?php
-        try{
-            $html = generateSelect($userID, 'Groups', 2);
-            echo $html;
-
-            $file_db = NULL;
-        }
-
-        catch(PDOException $e) {
-            // Print PDOException message
-            echo $e->getMessage();
-        }
-
+    foreach($groupResult as $row){
+        $groupName = $row['name'];  
 ?>
-
-    <input type="submit"/>
+    <option value="<?= $groupName; ?>"><?= $groupName; ?></option>
+<?php
+    }
+    $file_db = null;
+?>
+    </select>
+    <input type="submit">
     </form>
 
     <a href="accountSettings.php">Account Settings</a>

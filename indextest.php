@@ -15,53 +15,22 @@
         $file_db->setAttribute(PDO::ATTR_ERRMODE, 
                                 PDO::ERRMODE_EXCEPTION);
 
-        function generateSelect($userID, $name, $queryType) {
+        $stmt = $file_db->prepare('SELECT name      
+                          FROM photoGroup
+                          WHERE groupID in 
+                               (SELECT groupID
+                                FROM groupHasUser
+                                WHERE :userID = userID)');
 
-            $html = '<select name="'.$name.'">';
+        $stmt->bindParam(':userID', $userID);
+        $result = $stmt->execute();
 
-            if($queryType == 1) {
-
-                $insert = 'SELECT name 
-                               FROM album
-                               WHERE albumID in 
-                                    (SELECT albumID
-                                     FROM userCreateAlbum
-                                     WHERE :userID = userID)
-                               ORDER by dateCreated';
-     
-                $result = mysqli_query($file_db, $insert);
-                $row = mysqli_fetch_array($result, MYSQLI_NUM);
-
-                while($row) {            
-
-                    $html .= '<option value=' .$value.'>'.$row.'</option>';
-
-                }
-
-            } elseif($queryType == 2) {
-
-                    $insert = 'SELECT name                                    
-                               FROM photoGroup
-                               WHERE groupID in 
-                                    (SELECT groupID
-                                     FROM groupHasUser
-                                     WHERE :userID = userID)';             
-
-                $result = mysqli_query($file_db, $insert);
-                $row = mysqli_fetch_array($result, MYSQLI_NUM);
-
-                while($row) {            
-
-                    $html .= '<option value=' .$value.'>'.$row.'</option>';
-
-                }
-            }
-            
-            $html .= '</select>';
-            return $html;
+        if(!$userID) {
+            echo "Error";
         }
-    }
 
+    }      
+ 
     catch(PDOException $e) {
         // Print PDOException message
         echo $e->getMessage();
@@ -72,46 +41,22 @@
     };
 
 ?>
-    <a href="InsertPhotoSQL.php">Manage Photos Page</a>
+    <a href="InsertPhotoSQL.php">Manage Photos</a>
+    </br>
+    </br>
 
-    <form action="ManageAlbum.php" method="post">
-        Album Name
+    <select name="name" id="name">
 <?php
-        try {        
-        $html = generateSelect($userID, 'Albums', 1);
-        echo $html;
-        }
-
-        catch(PDOException $e) {
-            // Print PDOException message
-            echo $e->getMessage();
-        }
+    foreach($result as $row) {
+        $photoName = $row['name'];  
 ?>
-        <input type="submit"/>
-    </form>
-
-    <form action="ManageGroup.php" method="post">
-        Group Name
+    <option value="<?= $photoName; ?>"><?= $photoName; ?></option>
 <?php
-        try{
-            $html = generateSelect($userID, 'Groups', 2);
-            echo $html;
-
-            $file_db = NULL;
-        }
-
-        catch(PDOException $e) {
-            // Print PDOException message
-            echo $e->getMessage();
-        }
-
+    }
+    $file_db = null;
 ?>
-
-    <input type="submit"/>
-    </form>
-
-    <a href="AccountSettings.php">Account Settings</a>
-   
+    </select>
+    <br/>
     <br/>
     <a href="logout.php">Log Out</a>
 

@@ -31,6 +31,20 @@
         $stmt->bindParam(':groupName', $groupName);
         $stmt->execute();
 
+        $stmt3 = $file_db->prepare('SELECT groupID
+                                    FROM photoGroup
+                                    WHERE :groupName = name');
+
+        $stmt3->bindParam(':groupName', $groupName);
+        $groupID = $stmt3->execute();
+
+        $stmt4 = $file_db->prepare('INSERT INTO groupHasUser (groupID, userID)
+                                   VALUES(:groupID, :userID)');
+
+        $stmt4->bindParam(':groupID', $groupID);
+        $stmt4->bindParam(':userID', $userID);
+        $stmt4->execute();
+
         // Close file db connection
         $file_db = null;
 
