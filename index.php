@@ -9,8 +9,9 @@
         session_start();
         //Use session to grab variable from login page
         $userID = $_SESSION['userID'];
-        if(!$userID) {
-            echo "No present user.";
+        // This doesnt work
+        if(!($userID)) {
+            header("Location: login.html");
         }
         // Create (connect to) SQLite database in file
         $file_db = new PDO('sqlite:photos');
@@ -39,7 +40,7 @@
     };
 
 ?>
-    <a href="InsertPhotoSQL.php">Manage Photos</a>
+    <a href="managePhoto.php">Manage Photos</a>
     </br>
     </br>
 
