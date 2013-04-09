@@ -56,7 +56,7 @@
 
         $stmt5 = $file_db->prepare('DELETE
                                     FROM userPermissionsAlbum
-                                    WHERE groupID = :groupID');
+                                    WHERE groupID = albumID');
 
         $stmt5->bindParam(':albumID', $albumID);
         $stmt5->execute();
