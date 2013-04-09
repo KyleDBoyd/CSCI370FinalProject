@@ -16,7 +16,7 @@
         //Get current user's ID
         $userID = $_SESSION['userID'];
 
-        $groupName = $_POST['groupName'];
+        $groupName = $_SESSION['groupName'];
         
         $stmt = $file_db->prepare('SELECT groupID      
                                    FROM photoGroup

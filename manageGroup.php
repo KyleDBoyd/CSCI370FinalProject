@@ -15,8 +15,8 @@
                                 PDO::ERRMODE_EXCEPTION);
         //Get current user's ID
         $userID = $_SESSION['userID'];
-
         $groupName = $_POST['groupName'];
+        $_SESSION['groupID'] = $groupName;
 
         $stmt = $file_db->prepare('SELECT leader      
                                  FROM photoGroup
@@ -37,6 +37,11 @@
         $stmt2->bindParam(':userID', $userID);
         $stmt2->execute();
 
+    }
+    catch(PDOException $e) {
+        // Print PDOException message
+        echo $e->getMessage();
+    }
         if($userID == $leader) {
             //Leader functionalities
 ?>
@@ -50,52 +55,56 @@ Leader Page
     <input type="submit"/>
 </form>
 
-</br>
+<a href="deleteGroup.php">Delete Group</a><br/>
 
-<form action="deleteGroup.php" method="POST">
-    Delete Group <br/>
-    <select name="groupName" id="name">
 <?php
-    while($row = $stmt2->fetch()){
-        $groupName2 = $row['name']; 
+    } else {
+        //Member functionalities
+        echo "Member Page</br>";
+    }
+    
+    echo "Select Album to view Photo";
+    $stmt = $file_db->prepare('SELECT name      
+                             FROM album
+                             WHERE albumID in 
+                                  (SELECT albumID
+                                   FROM groupHasPermissionAlbum
+                                   WHERE :groupID = groupID)');
+
+    $stmt->bindParam(':groupID', $groupID);
+    $stmt->execute();
 ?>
-    <option value="<?= $groupName2; ?>"><?= $groupName2; ?></option>
+<form action="viewGroupAlbumPhoto.php" method="post">
+<select name="albumName" id="albumName">
+<?php
+    while($row = $stmt->fetch()){
+    $albumName = $row['name'];  
+?>
+<option value="<?= $albumName; ?>"><?= $albumName; ?></option>
 <?php
     }
     $file_db = null;
 ?>
-    </select>
-    <input type="submit">
-    </form>
-
-    </br>
-    <a href="index.php">Back to Home</a>
+</select>
+<input type="submit"/>
+</form>
 <?php
-        } else {
-            //Member functionalities
-            echo "Member Page</br>";
-            echo '</br><a href="index.php">Back to Home</a>';
-        }
+    if(!$_SESSION['loggedin']){
+        header("Location: login.html");
+    };
 
-        // Close file db connection
-        $file_db = null;
+    $_SESSION['groupName'] = $groupName;
 
-        if(!$_SESSION['loggedin']){
-            header("Location: login.html");
-        };
-
-        $_SESSION['groupName'] = $groupName;
-
-        if(!($userID)) {
-            header("Location: login.html");
-        }
-
+    if(!($userID)) {
+        header("Location: login.html");
     }
-    catch(PDOException $e) {
-        // Print PDOException message
-        echo $e->getMessage();
-    }
+    // Close file db connection
+    
 ?>
+<br/>
+<a href="viewGroupPhoto.php">View Groups Photos</a><br/>
+<br/>
+<a href="index.php">Back to Home</a><br/>
 
 </body>
 </html>
