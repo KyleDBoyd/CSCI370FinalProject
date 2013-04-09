@@ -34,8 +34,6 @@
             $photoID = $row['photoID'];
         }
             
-
-
         // Insert into userHasPhoto
         $delete = "DELETE FROM userHasPhoto WHERE userID = :userID AND photoID = :photoID";
     

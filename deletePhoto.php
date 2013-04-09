@@ -24,10 +24,7 @@
         // Set errormode to exceptions
         $file_db->setAttribute(PDO::ATTR_ERRMODE, 
                                 PDO::ERRMODE_EXCEPTION);
-
-        echo "Select photo to delete from database. <br/>";
-
-        
+   
         $result = $file_db->query('SELECT name FROM photo');
     }
     catch(PDOException $e) {
