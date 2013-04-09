@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>Delete Member</title>
+<title>Delete Group</title>
 </head>
 <body>
 <?php

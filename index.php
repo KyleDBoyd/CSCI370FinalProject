@@ -65,7 +65,7 @@
 
     <form action="manageAlbum.php" method="POST">
     Manage Album <br/>
-    <select name="name" id="name">
+    <select name="albumName" id="name">
 <?php
     while($row = $stmt2->fetch()){
         $albumName = $row['name']; 

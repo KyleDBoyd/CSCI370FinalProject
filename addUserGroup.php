@@ -46,17 +46,14 @@
             $stmt2->execute();
 
             echo "Member Added Successfully</br>";
-            echo '</br><a href="manageGroup.php">Back to Manage Group</a>';
-            echo "</br></br>";
             echo '</br><a href="index.php">Back to Home</a>';
 
         } else {
+
             echo "Member does not exist</br>";
-            echo '</br><a href="manageGroup.php">Back to Manage Group</a>';
-            echo "</br></br>";
             echo '</br><a href="index.php">Back to Home</a>';
 
-                    // Close file db connection
+            // Close file db connection
             $file_db = null;
 
             if(!$_SESSION['loggedin']){
