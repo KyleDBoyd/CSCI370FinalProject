@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>Manage Group</title>
+<title>Create Group</title>
 </head>
 <body>
 <?php
@@ -15,35 +15,25 @@
                                 PDO::ERRMODE_EXCEPTION);
 
         $userID = $_SESSION['userID'];
+
         $groupName = $_POST['groupName'];
-
-        $stmt2 = $file_db->prepare('SELECT name
-                                    FROM user
-                                    WHERE :userID = userID');
-
-        $stmt2->bindParam(':userID', $userID);
-        $leader = $stmt2->execute();
   
         $stmt = $file_db->prepare('INSERT INTO photoGroup (name, leader)  
                                    VALUES(:groupName, :leader)');
 
-        $stmt->bindParam(':leader', $leader);
+        $stmt->bindParam(':leader', $userID);
         $stmt->bindParam(':groupName', $groupName);
         $stmt->execute();
 
-        $stmt3 = $file_db->prepare('SELECT groupID
-                                    FROM photoGroup
-                                    WHERE :groupName = name');
+        //Grab groupID from last insert
+        $groupID = $file_db->lastinsertID();
 
-        $stmt3->bindParam(':groupName', $groupName);
-        $groupID = $stmt3->execute();
-
-        $stmt4 = $file_db->prepare('INSERT INTO groupHasUser (groupID, userID)
+        $stmt2 = $file_db->prepare('INSERT INTO groupHasUser (groupID, userID)
                                    VALUES(:groupID, :userID)');
 
-        $stmt4->bindParam(':groupID', $groupID);
-        $stmt4->bindParam(':userID', $userID);
-        $stmt4->execute();
+        $stmt2->bindParam(':groupID', $groupID);
+        $stmt2->bindParam(':userID', $userID);
+        $stmt2->execute();
 
         // Close file db connection
         $file_db = null;
@@ -60,6 +50,12 @@
     catch(PDOException $e) {
     // Print PDOException message
     echo $e->getMessage();
+    }
+
+    $_SESSION['userID'] = $userID;
+
+    if(!($userID)) {
+            header("Location: login.html");
     }
 ?>
 </body>
