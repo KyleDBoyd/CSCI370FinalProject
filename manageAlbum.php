@@ -35,19 +35,15 @@
 <br/>
 <form action="addPhotoAlbum.php" method="post">
 <select name="name" id="name">
-Select photo to add to album <br/>
 <?php
-$stmt = $file_db->prepare('SELECT name      
+    $stmt = $file_db->prepare('SELECT name      
                              FROM photo
                              WHERE photoID in 
                                   (SELECT photoID
-                                   FROM albumHasPhoto
-                                   WHERE albumID in
-                                       (SELECT albumID
-                                        FROM album
-                                        WHERE :albumName = name))');
+                                   FROM userHasPhoto
+                                   WHERE :userID = userID)');
 
-    $stmt->bindParam(':albumName', $albumName);
+    $stmt->bindParam(':userID', $userID);
     $stmt->execute();
     while($row = $stmt->fetch()){
         $photoName = $row['name'];  
@@ -60,18 +56,20 @@ $stmt = $file_db->prepare('SELECT name
 <input type="submit">
 </form>
 <br/>
+Select Photo to Delete <br/>
 <form action="deletePhotoAlbum.php" method="post">
 <select name="name" id="name">
-Select photo to delete from album <br/>
 <?php
-    $stmt = $file_db->prepare('SELECT name      
+$stmt = $file_db->prepare('SELECT name      
                              FROM photo
                              WHERE photoID in 
                                   (SELECT photoID
                                    FROM albumHasPhoto
-                                   WHERE :userID = userID)');
-
-    $stmt->bindParam(':userID', $userID);
+                                   WHERE albumID in
+                                       (SELECT albumID
+                                        FROM album
+                                        WHERE :albumName = name))');
+$stmt->bindParam(':albumName', $albumName);
     $stmt->execute();
     while($row = $stmt->fetch()){
         $photoName = $row['name'];  
@@ -89,6 +87,5 @@ Select photo to delete from album <br/>
 <a href="deleteAlbum.php">Delete Album</a><br/>
 <br/>
 <a href="index.php">Back to Home</a>
-
 </body>
 </html>
