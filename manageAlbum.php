@@ -27,16 +27,6 @@
             header("Location: login.html");
         };
 
-
-        if(!($_SESSION['loggedin'])){
-            header("Location: invalidLogin.html");
-        }
-
-
-        if(!($_SESSION['loggedin'])){
-            header("Location: invalidLogin.html");
-        }
-
     }
     catch(PDOException $e) {
     // Print PDOException message
