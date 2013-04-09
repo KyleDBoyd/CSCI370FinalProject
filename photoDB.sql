@@ -56,7 +56,7 @@ create table album (
 
 create table photo (
     photoID INTEGER primary key AUTOINCREMENT,
-    name TEXT,
+    name TEXT UNIQUE,
     genre TEXT,
     date NUMERIC,
     imgPath TEXT 

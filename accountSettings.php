@@ -49,8 +49,6 @@
         New Password:<input name="newPassword" type="password" />
         <input type="submit"/>
     </form>
-    <a href="changeProfilePicSQL.php">Change Profile Picture</a>
-    <br/>
     <br/>
     <a href="index.php">Home Page</a>
     <br/>
