@@ -51,20 +51,20 @@
             echo "Member does not exist</br>";
             echo '</br><a href="index.php">Back to Home</a>';
 
-                // Close file db connection
-        $file_db = null;
+                    // Close file db connection
+            $file_db = null;
 
-        if(!$_SESSION['loggedin']){
-            header("Location: login.html");
-        };
-        
-        $_SESSION['userID'] = $userID;
-        $_POST['groupName'] = $groupName;
+            if(!$_SESSION['loggedin']){
+                header("Location: login.html");
+            };
+            
+            $_SESSION['userID'] = $userID;
+            $_POST['groupName'] = $groupName;
 
-        if(!($userID)) {
-            header("Location: login.html");
+            if(!($userID)) {
+                header("Location: login.html");
+            }
         }
-
 
     }
     catch(PDOException $e) {
