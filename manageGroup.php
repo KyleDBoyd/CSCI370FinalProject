@@ -43,6 +43,15 @@
 Leader Page
 </br>
 </br>
+
+<form action="addUserGroup.php" method="post">
+    Add Member <br/>
+    Member's Username:<input name ="memberName" type ="text" />
+    <input type="submit"/>
+</form>
+
+</br>
+
 <form action="deleteGroup.php" method="POST">
     Delete Group <br/>
     <select name="groupName" id="name">
@@ -59,13 +68,6 @@ Leader Page
     <input type="submit">
     </form>
 
-    <form action="addUserGroup.php" method="post">
-    Add Member <br/>
-    Member's Username:<input name ="memberName" type ="text" />
-    <input type="submit"/>
-    </form>    
-
-
     </br>
     <a href="index.php">Back to Home</a>
 <?php
@@ -81,9 +83,8 @@ Leader Page
         if(!$_SESSION['loggedin']){
             header("Location: login.html");
         };
-        
-        $_SESSION['userID'] = $userID;
-        $_POST['groupName'] = $groupName;
+
+        $_SESSION['groupName'] = $groupName;
 
         if(!($userID)) {
             header("Location: login.html");

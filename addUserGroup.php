@@ -16,7 +16,7 @@
         //Get current user's ID
         $userID = $_SESSION['userID'];
 
-        $groupName = $_POST['groupName'];
+        $groupName = $_SESSION['groupName'];
         $memberID = $_POST['memberName'];
 
         $stmt = $file_db->prepare('SELECT *     
@@ -46,9 +46,14 @@
             $stmt2->execute();
 
             echo "Member Added Successfully</br>";
+            echo '</br><a href="manageGroup.php">Back to Manage Group</a>';
+            echo "</br></br>";
+            echo '</br><a href="index.php">Back to Home</a>';
 
         } else {
             echo "Member does not exist</br>";
+            echo '</br><a href="manageGroup.php">Back to Manage Group</a>';
+            echo "</br></br>";
             echo '</br><a href="index.php">Back to Home</a>';
 
                     // Close file db connection
@@ -57,9 +62,6 @@
             if(!$_SESSION['loggedin']){
                 header("Location: login.html");
             };
-            
-            $_SESSION['userID'] = $userID;
-            $_POST['groupName'] = $groupName;
 
             if(!($userID)) {
                 header("Location: login.html");
