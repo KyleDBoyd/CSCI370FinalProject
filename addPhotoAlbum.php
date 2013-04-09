@@ -14,6 +14,7 @@
         $file_db->setAttribute(PDO::ATTR_ERRMODE, 
                                 PDO::ERRMODE_EXCEPTION);
         //Get current user's ID
+
         $albumName = $_SESSION_['albumName'];
         $photoName = $_POST['name'];
 

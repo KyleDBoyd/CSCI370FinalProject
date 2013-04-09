@@ -16,6 +16,7 @@
         $albumName = $_SESSION_['albumName'];
         $photoName = $_POST['name'];
         
+
         // Get photoID
         $stmt = $file_db->prepare('SELECT photoID
                                    FROM photo

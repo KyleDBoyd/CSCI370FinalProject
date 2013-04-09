@@ -11,7 +11,7 @@
         // Set errormode to exceptions
         $file_db->setAttribute(PDO::ATTR_ERRMODE, 
                                 PDO::ERRMODE_EXCEPTION);
-
+        //start session
         session_start();
         $albumName = $_SESSION['albumName']; 
 

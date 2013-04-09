@@ -26,6 +26,7 @@
     // Print PDOException message
     echo $e->getMessage();
     }
+
 ?>
 <form action="addUserAlbum.php" method="post">
     Add Member <br/>
