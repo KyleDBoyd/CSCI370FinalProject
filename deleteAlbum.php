@@ -15,7 +15,7 @@
                                 PDO::ERRMODE_EXCEPTION);
         //Get current user's ID
         $userID = $_SESSION['userID'];
-
+    
         $albumName = $_SESSION['albumName'];
         
         $stmt = $file_db->prepare('SELECT albumID      
@@ -33,7 +33,7 @@
                                     WHERE photoID in 
                                         (SELECT photoID
                                          FROM albumHasPhoto
-                                         WHERE albumID = :albumID');
+                                         WHERE albumID = :albumID)');
         $stmt2->bindParam(':albumID', $albumID);
         $stmt2->execute();
 
@@ -56,7 +56,7 @@
 
         $stmt5 = $file_db->prepare('DELETE
                                     FROM userPermissionsAlbum
-                                    WHERE groupID = albumID');
+                                    WHERE albumID = :albumID');
 
         $stmt5->bindParam(':albumID', $albumID);
         $stmt5->execute();

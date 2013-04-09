@@ -42,7 +42,7 @@ create table photographer (
 
 create table photoGroup (
     groupID INTEGER primary key AUTOINCREMENT,
-    name TEXT,
+    name TEXT UNIQUE,
     leader TEXT,
     size INTEGER
 );
@@ -140,7 +140,7 @@ create table groupHasPermissionPhoto (
 
 create table albumHasPhoto (
     albumID INTEGER,
-    groupID INTEGER,
+    photoID INTEGER,
     FOREIGN KEY(albumID) REFERENCES album(albumID),
-    FOREIGN KEY(groupID) REFERENCES photoGroup(groupID)
+    FOREIGN KEY(photoID) REFERENCES photo(photoID)
 );
