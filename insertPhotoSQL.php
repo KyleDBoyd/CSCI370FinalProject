@@ -12,7 +12,16 @@
         $file_db->setAttribute(PDO::ATTR_ERRMODE, 
                                 PDO::ERRMODE_EXCEPTION);
 
+        session_start();
         $userID = $_SESSION['userID']; 
+
+        if(!($userID)) {
+            header("Location: login.html");
+        }
+
+        if(!$_SESSION['loggedin']){
+            header("Location: login.html");
+        };
         $genre = $_POST['genre'];
         $name = $_POST['name'];
         
@@ -22,37 +31,24 @@
                 $file_db = null;
                 header("Location: insertPhotoError.html");
             }else{
-                $imgName = $_FILES["file"]["name"];
-                $imgType = $_FILES["file"]["type"];
-                $imgSize = ($_FILES["file"]["size"] / 1024);
-                $imgPath = "images/" . $imgName;
+                $imgPath = "images/" . $name;
                 // move image into folder
                 move_uploaded_file($_FILES["file"]["tmp_name"], $imgPath);
             }
         // Insert into photos table
-        $insert = "INSERT INTO photo (genre, name, date, imgName, imgType, imgPath, imgSize)
-                    VALUES(:genre, :name, datetime(), :imgName, :imgType, :imgPath, :imgSize)";
+        $insert = "INSERT INTO photo (name, genre, date, imgPath)
+                    VALUES(:name, :genre, datetime(), :imgPath)";
 
         $stmt = $file_db->prepare($insert);
         
-        $stmt->bindParam(':genre', $genre);
-        $stmt->bindParam(':name', $name);
-        $stmt->bindParam(':imgName', $imgName);
-        $stmt->bindParam(':imgType', $imgType);
+        $stmt->bindParam(':name', $genre);
+        $stmt->bindParam(':genre', $name);
         $stmt->bindParam(':imgPath', $imgPath);
-        $stmt->bindParam(':imgSize', $imgSize);
 
         $stmt->execute();
         
-        // Select photoID from photo that was inserted
-        $query = "SELECT photoID FROM photo WHERE imgName = :imgName";
-
-        $query = $file_db->prepare($query);
-
-        $query->bindParam(':Name', $Name);
-    
-        $photoID = $query->execute();
-        
+        // Select photoID from photo that was inserted    
+        $photoID = $file_db->lastInsertId();
 
         // Insert into userHasPhoto
         $insert = "INSERT INTO userHasPhoto (userID, photoID)
@@ -76,8 +72,16 @@
 
         $stmt->execute();
     
+       /* $query = $file_db->query('SELECT imgPath FROM photo');
+        foreach($query as $row){
+            $image = $row['imgPath'];
+            echo "<img src=\"$image\">";
+        }
+      */
         echo "Image inserted sucessfully <br/>";
 
+    
+    
         // Close file db connection
         $file_db = null;
     }

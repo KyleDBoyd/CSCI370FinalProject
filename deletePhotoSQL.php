@@ -12,19 +12,34 @@
         $file_db->setAttribute(PDO::ATTR_ERRMODE, 
                                 PDO::ERRMODE_EXCEPTION);
 
+        session_start();
+        //Use session to grab variable from login page
+        $userID = $_SESSION['userID']; 
+
+        if(!($userID)) {
+            header("Location: login.html");
+        }
+
+        if(!$_SESSION['loggedin']){
+            header("Location: login.html");
+        };
         $name = $_POST['name'];
-        $userID = $_SESSION['userID'];
 
         // get photoID
-        $query = "SELECT photoID FROM photo WHERE imgName = :imgName";
+        $query = "SELECT photoID FROM photo WHERE name = :name";
         $query = $file_db->prepare($query);
-        $query->bindParam(':Name', $Name);
-        $photoID = $query->execute();        
+        $query->bindParam(':name', $name);
+        $query->execute();  
+        while($row = $query->fetch()){
+            $photoID = $row['photoID'];
+        }
+            
+
 
         // Insert into userHasPhoto
         $delete = "DELETE FROM userHasPhoto WHERE userID = :userID AND photoID = :photoID";
     
-        $stmt = $file_db->prepare($insert);
+        $stmt = $file_db->prepare($delete);
 
         $stmt->bindParam(':userID', $userID);
         $stmt->bindParam(':photoID', $photoID);
@@ -57,7 +72,7 @@
     echo $e->getMessage();
     }
 ?>
-<a href="index.html">Back to Home</a>
+<a href="index.php">Back to Home</a>
 <br/>
 </body>
 </html>

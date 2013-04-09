@@ -43,7 +43,6 @@
         echo $e->getMessage();
     }
     
-    $_SESSION['userID'] = $userID;
 
     if(!($userID)) {
             header("Location: login.html");
