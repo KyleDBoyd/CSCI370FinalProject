@@ -13,15 +13,14 @@
         // Set errormode to exceptions
         $file_db->setAttribute(PDO::ATTR_ERRMODE, 
                                 PDO::ERRMODE_EXCEPTION);
+        //Get current user's ID
+        $userID = $_SESSION['userID'];
 
-   
+        $albumName = $_POST['albumName'];
+        $_SESSION['albumName'] = $albumName;
 
         // Close file db connection
         $file_db = null;
-
-
-        //Pass Variable to session
-        $_SESSION['userID'] = $userID;
 
         if(!$_SESSION['loggedin']){
             header("Location: login.html");
@@ -33,5 +32,16 @@
     echo $e->getMessage();
     }
 ?>
+<form action="addUserAlbum.php" method="post">
+    Add Member <br/>
+    Member's Username:<input name ="memberName" type ="text" />
+    <input type="submit"/>
+</form>
+
+<a href="deleteAlbum.php">Delete Album</a>
+<br/>
+<br/>
+<a href="index.php">Back to Home</a>
+
 </body>
 </html>
