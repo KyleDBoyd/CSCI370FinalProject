@@ -15,7 +15,6 @@
         $userID = $_POST['userID'];
         $password = $_POST['password'];
         $name = $_POST['name'];
-        $profilePicData = null;
         $gender = $_POST['gender'];
         $favoriteGenre = $_POST['favoriteGenre'];
         $country = $_POST['country']; 
@@ -27,15 +26,14 @@
         }
         else{
 
-        $insert = "INSERT INTO user (userID, password, name, dateJoined, gender, profilePicData, favoriteGenre, country)
-                    VALUES(:userID, :password, :name, datetime(), :gender, :profilePicData, :favoriteGenre, :country)";
+        $insert = "INSERT INTO user (userID, password, name, dateJoined, gender, favoriteGenre, country)
+                    VALUES(:userID, :password, :name, datetime(), :gender, :favoriteGenre, :country)";
         $stmt = $file_db->prepare($insert);
 
         $stmt->bindParam(':userID', $userID);
         $stmt->bindParam(':password', $password);
         $stmt->bindParam(':name', $name);
         $stmt->bindParam(':gender', $gender);
-        $stmt->bindParam(':profilePicData', $profilePicData);
         $stmt->bindParam(':favoriteGenre', $favoriteGenre);
         $stmt->bindParam(':country', $country);
 

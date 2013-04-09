@@ -11,9 +11,14 @@
         session_start();
         //Use session to grab variable from login page
         $userID = $_SESSION['userID']; 
-        if(!$_SESSION['loggedin']){
+
+        if(!($userID)) {
             header("Location: login.html");
-         };
+        }
+
+     if(!$_SESSION['loggedin']){
+            header("Location: login.html");
+        };
         // Create (connect to) SQLite database in file
         $file_db = new PDO('sqlite:photos');
         // Set errormode to exceptions
