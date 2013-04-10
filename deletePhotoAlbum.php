@@ -13,7 +13,7 @@
         $file_db->setAttribute(PDO::ATTR_ERRMODE, 
                                 PDO::ERRMODE_EXCEPTION);
         //album and photo name
-        $albumName = $_SESSION_['albumName'];
+        $albumName = $_SESSION['albumName'];
         $photoName = $_POST['name'];
         
 
@@ -31,7 +31,7 @@
         //Delete Group from relations
 
         $stmt = $file_db->prepare('DELETE
-                                    FROM groupHasPermissionAlbum
+                                    FROM albumHasPhoto
                                     WHERE photoID = :photoID'); 
         
         $stmt->bindParam(':photoID', $photoID);
@@ -46,10 +46,6 @@
             header("Location: login.html");
         };
         
-        if(!($userID)) {
-            header("Location: login.html");
-        }
-            
     }
     catch(PDOException $e) {
         // Print PDOException message

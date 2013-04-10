@@ -15,10 +15,6 @@
         session_start();
         $albumName = $_SESSION['albumName']; 
 
-        if(!($userID)) {
-            header("Location: login.html");
-        }
-
         if(!$_SESSION['loggedin']){
             header("Location: login.html");
         };

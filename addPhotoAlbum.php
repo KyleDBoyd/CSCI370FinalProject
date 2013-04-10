@@ -15,8 +15,9 @@
                                 PDO::ERRMODE_EXCEPTION);
         //Get current user's ID
 
-        $albumName = $_SESSION_['albumName'];
+        $albumName = $_SESSION['albumName'];
         $photoName = $_POST['name'];
+        $userID = $_SESSION['userID'];
 
         // Get photoID
         $stmt = $file_db->prepare('SELECT photoID
@@ -47,6 +48,7 @@
         $stmt->bindParam(':photoID', $photoID);
         $stmt->execute();
 
+
         echo "Photo added sucessfully</br>";
         echo '</br><a href="index.php">Back to Home</a>';
 
@@ -58,9 +60,6 @@
             header("Location: login.html");
         };
 
-        if(!($userID)) {
-            header("Location: login.html");
-        }
     }
     catch(PDOException $e) {
         // Print PDOException message

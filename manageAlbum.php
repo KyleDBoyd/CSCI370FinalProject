@@ -13,9 +13,9 @@
         // Set errormode to exceptions
         $file_db->setAttribute(PDO::ATTR_ERRMODE, 
                                 PDO::ERRMODE_EXCEPTION);
-        $userID = $_SESSION['userID'];
         $albumName = $_POST['albumName'];
         $_SESSION['albumName'] = $albumName;
+        $userID = $_SESSION['userID'];
 
         if(!$_SESSION['loggedin']){
             header("Location: login.html");
