@@ -16,7 +16,7 @@
         //Get current user's ID
         $userID = $_SESSION['userID'];
         $groupName = $_POST['groupName'];
-        $_SESSION['groupID'] = $groupName;
+        $_SESSION['groupName'] = $groupName;
 
         $stmt = $file_db->prepare('SELECT leader      
                                  FROM photoGroup
@@ -48,6 +48,7 @@
 Leader Page
 </br>
 </br>
+<a href="deleteGroup.php">Delete Group</a><br/>
 
 <form action="addUserGroup.php" method="post">
     Add Member <br/>
@@ -55,7 +56,51 @@ Leader Page
     <input type="submit"/>
 </form>
 
-<a href="deleteGroup.php">Delete Group</a><br/>
+<form action="addPhotoGroup.php" method="post">
+<select name="name" id="name">
+<?php
+    $stmt = $file_db->prepare('SELECT name      
+                             FROM photo
+                             WHERE photoID in 
+                                  (SELECT photoID
+                                   FROM userHasPhoto
+                                   WHERE :userID = userID)');
+
+    $stmt->bindParam(':userID', $userID);
+    $stmt->execute();
+    while($row = $stmt->fetch()){
+        $photoName = $row['name'];  
+?>
+<option value="<?= $photoName; ?>"><?= $photoName; ?></option>
+<?php
+    }
+?>
+</select>
+<input type="submit">
+</form>
+<br/>
+<form action="deletePhotoGroup.php" method="post">
+<select name="name" id="name">
+<?php
+    $stmt = $file_db->prepare('SELECT name
+                               FROM photo
+                               WHERE photoID in
+                                   (SELECT photoID
+                                    FROM grouphasPermissionPhoto
+                                    where groupID in
+                                        (SELECT groupID
+                                         FROM photoGroup
+                                         WHERE :groupName = name))');
+
+    $stmt->bindParam(':groupName', $groupName);
+    $stmt->execute();
+    while($row = $stmt->fetch()){
+        $photoName = $row['name'];
+?>
+<option value="<?= $photoName; ?>"><?= $photoName; ?></option>
+<?php
+    }
+?>
 
 <?php
     } else {
