@@ -24,8 +24,7 @@
         // Set errormode to exceptions
         $file_db->setAttribute(PDO::ATTR_ERRMODE, 
                                 PDO::ERRMODE_EXCEPTION);
-   
-        $result = $file_db->query('SELECT name FROM photo');
+
     }
     catch(PDOException $e) {
     // Print PDOException message
@@ -34,13 +33,21 @@
 ?>
 <select name="name" id="name">
 <?php
-    foreach($result as $row){
+    $stmt = $file_db->prepare('SELECT name      
+                             FROM photo
+                             WHERE photoID in 
+                                  (SELECT photoID
+                                   FROM userHasPhoto
+                                   WHERE :userID = userID)');
+
+    $stmt->bindParam(':userID', $userID);
+    $stmt->execute();
+    while($row = $stmt->fetch()){
         $photoName = $row['name'];  
 ?>
 <option value="<?= $photoName; ?>"><?= $photoName; ?></option>
 <?php
     }
-    $file_db = null;
 ?>
 </select>
 <input type="submit">
