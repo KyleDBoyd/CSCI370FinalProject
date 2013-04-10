@@ -12,13 +12,20 @@ INSERT INTO user VALUES('chad47','c','chad',10,'male','beaches','russia');
 INSERT INTO user VALUES('jane','j','jane',10,'female','sports','canada');
 INSERT INTO user VALUES('kyle','k','kyle',10,'male','black and white','japan');
 INSERT INTO user VALUES('george','g','george',10,'male','I hate pictures','china');
+INSERT INTO user VALUES('alizah','l','alizah',10,'female','I love everything','india');
+INSERT INTO user VALUES('elliot','w','elliot',10,'male','Beer Pictures!','germany');
 
-INSERT INTO photographer VALUES('chad47','master','city');
+INSERT INTO photographer VALUES('alizah','professional','water');
+INSERT INTO photographer VALUES('chad47','amateur','city');
+INSERT INTO photographer VALUES('george','amateur','town');
+INSERT INTO photographer VALUES('bob','amateur','farm');
 
 INSERT INTO photoGroup VALUES(1,'bestGroupEver','bob',1);
+INSERT INTO photoGroup VALUES(2,'Group1','chad47',1);
+INSERT INTO photoGroup VALUES(3,'Photographers','george',1);
 
 INSERT INTO album VALUES(1,'beach','myBeachAlbum',5);
-INSERT INTO album VALUES(2,'city','myCityAlbum',5);
+INSERT INTO album VALUES(2,'citypics','myCityAlbum',5);
 INSERT INTO album VALUES(3,'town','myTownAlbum',5);
 
 INSERT INTO photo VALUES(1,'photo1','beach',5,'images/photo1.jpg');
@@ -49,6 +56,11 @@ INSERT INTO location VALUES(1,'water','911 fake st','japan');
 INSERT INTO location VALUES(2,'city','9451 fake st','canada');
 INSERT INTO location VALUES(3,'town','91451 fake st','japan');
 INSERT INTO location VALUES(4,'farm','9123 fake st','russia');
+INSERT INTO location VALUES(5,'school','9123 kangaroo st','australia');
+INSERT INTO location VALUES(6,'church','9123 nottingham st','england');
+INSERT INTO location VALUES(7,'mall','9123 xiao st','china');
+INSERT INTO location VALUES(8,'museum','9123 french st','france');
+INSERT INTO location VALUES(9,'mountains','9123 mountain st','russia');
 
 INSERT INTO userHasPhoto VALUES('bob',1);
 INSERT INTO userHasPhoto VALUES('bob',2);
@@ -95,9 +107,68 @@ INSERT INTO userPermissionsPhoto VALUES('jane',10);
 INSERT INTO userPermissionsPhoto VALUES('jane',19);
 
 INSERT INTO userCreateAlbum VALUES('bob',1);
+INSERT INTO userCreateAlbum VALUES('jane',2);
+INSERT INTO userCreateAlbum VALUES('chad47',3);
 
 INSERT INTO userPermissionsAlbum VALUES('bob',1);
+INSERT INTO userPermissionsAlbum VALUES('jane',2);
+INSERT INTO userPermissionsAlbum VALUES('chad47',3);
     
 INSERT INTO groupHasUser VALUES (1,'bob');
 INSERT INTO groupHasUser VALUES (1,'chad47');
 INSERT INTO groupHasUser VALUES (1,'kyle');
+INSERT INTO groupHasUser VALUES (2,'chad47');
+INSERT INTO groupHasUser VALUES (3,'george');
+INSERT INTO groupHasUser VALUES (3,'jane');
+
+INSERT INTO groupHasPermissionAlbum VALUES (2,3);
+INSERT INTO groupHasPermissionAlbum VALUES (1,3);
+INSERT INTO groupHasPermissionAlbum VALUES (1,1);
+INSERT INTO groupHasPermissionAlbum VALUES (3,2);
+
+INSERT INTO groupHasPermissionPhoto VALUES (1,1);
+INSERT INTO groupHasPermissionPhoto VALUES (2,1);
+INSERT INTO groupHasPermissionPhoto VALUES (4,1);
+INSERT INTO groupHasPermissionPhoto VALUES (5,1);
+INSERT INTO groupHasPermissionPhoto VALUES (6,1);
+INSERT INTO groupHasPermissionPhoto VALUES (2,2);
+INSERT INTO groupHasPermissionPhoto VALUES (4,2);
+INSERT INTO groupHasPermissionPhoto VALUES (11,2);
+INSERT INTO groupHasPermissionPhoto VALUES (15,2);
+INSERT INTO groupHasPermissionPhoto VALUES (17,2);
+INSERT INTO groupHasPermissionPhoto VALUES (18,2);
+INSERT INTO groupHasPermissionPhoto VALUES (19,2);
+INSERT INTO groupHasPermissionPhoto VALUES (20,2);
+INSERT INTO groupHasPermissionPhoto VALUES (21,2);
+INSERT INTO groupHasPermissionPhoto VALUES (23,2);
+INSERT INTO groupHasPermissionPhoto VALUES (1,3);
+INSERT INTO groupHasPermissionPhoto VALUES (2,3);
+INSERT INTO groupHasPermissionPhoto VALUES (4,3);
+INSERT INTO groupHasPermissionPhoto VALUES (5,3);
+INSERT INTO groupHasPermissionPhoto VALUES (12,3);
+INSERT INTO groupHasPermissionPhoto VALUES (13,3);
+
+INSERT INTO albumHasPhoto VALUES (1,1);
+INSERT INTO albumHasPhoto VALUES (1,2);
+INSERT INTO albumHasPhoto VALUES (1,4);
+INSERT INTO albumHasPhoto VALUES (1,5);
+INSERT INTO albumHasPhoto VALUES (1,6);
+INSERT INTO albumHasPhoto VALUES (2,2);
+INSERT INTO albumHasPhoto VALUES (2,4);
+INSERT INTO albumHasPhoto VALUES (2,11);
+INSERT INTO albumHasPhoto VALUES (2,15);
+INSERT INTO albumHasPhoto VALUES (2,17);
+INSERT INTO albumHasPhoto VALUES (2,18);
+INSERT INTO albumHasPhoto VALUES (2,19);
+INSERT INTO albumHasPhoto VALUES (2,20);
+INSERT INTO albumHasPhoto VALUES (2,21);
+INSERT INTO albumHasPhoto VALUES (2,22);
+INSERT INTO albumHasPhoto VALUES (3,1);
+INSERT INTO albumHasPhoto VALUES (3,2);
+INSERT INTO albumHasPhoto VALUES (3,4);
+INSERT INTO albumHasPhoto VALUES (3,5);
+INSERT INTO albumHasPhoto VALUES (3,12);
+INSERT INTO albumHasPhoto VALUES (3,14);
+
+
+

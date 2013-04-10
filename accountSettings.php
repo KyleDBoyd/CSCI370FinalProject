@@ -14,7 +14,32 @@
         $file_db->setAttribute(PDO::ATTR_ERRMODE, 
                                 PDO::ERRMODE_EXCEPTION);
 
+        $userID = $_SESSION['userID'];
 
+        $stmt = $file_db->prepare('SELECT *     
+                                    FROM photographer
+                                    WHERE photographerID = :userID');
+
+        $stmt->bindParam(':userID', $userID);
+        $stmt->execute();
+
+        if ($stmt->fetch()) {
+        //They don't need photographer options
+
+        } else {
+?>
+    <br/>
+    Upgrade to Photographer:
+    <br/>
+    <form action="addPhotographer.php" method="POST">
+    <input type="radio" name="photographerType" value="Professional"/> Professional
+    <input type="radio" name="photographerType" value="Amateur"/> 
+Amateur
+    <input type="submit"/>
+    </form>
+    <br/>
+<?php
+        }
         // Close file db connection
         $file_db = null;
 
@@ -38,12 +63,10 @@
     // Print PDOException message
     echo $e->getMessage();
     }
-?>
-
+?>        
     
     <form action="changePasswordSQL.php" method="post">
         Change Password
-        <br/>
         <br/>
         Old Password:<input name="oldPassword" type="password" />
         New Password:<input name="newPassword" type="password" />
