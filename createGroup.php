@@ -17,6 +17,10 @@
         $userID = $_SESSION['userID'];
 
         $groupName = $_POST['groupName'];
+
+        if(!$_SESSION['loggedin']){
+            header("Location: login.html");
+        };
   
         $stmt = $file_db->prepare('INSERT INTO photoGroup (name, leader)  
                                    VALUES(:groupName, :leader)');
@@ -41,11 +45,6 @@
         echo "Group created sucessfully. <br />";
 
         echo '<a href="index.php">Back to Home</a>';
-
-        if(!$_SESSION['loggedin']){
-            header("Location: login.html");
-        };
-
     }
     catch(PDOException $e) {
     // Print PDOException message

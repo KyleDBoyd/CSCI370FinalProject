@@ -19,6 +19,14 @@
         $groupName = $_SESSION['groupName'];
         $memberID = $_POST['memberName'];
 
+        if(!$_SESSION['loggedin']){
+            header("Location: login.html");
+        };
+
+        if(!($userID)) {
+            header("Location: login.html");
+        }
+
         $stmt = $file_db->prepare('SELECT *     
                                  FROM user
                                  WHERE name = :memberID');
@@ -44,33 +52,24 @@
             $stmt2->bindParam(':groupID', $groupID);
             $stmt2->bindParam(':memberID', $memberID);
             $stmt2->execute();
+        
+            $file_db = null;
 
             echo "Member Added Successfully</br>";
             echo '</br><a href="index.php">Back to Home</a>';
 
         } else {
 
-            echo "Member does not exist</br>";
-            echo '</br><a href="index.php">Back to Home</a>';
-
             // Close file db connection
             $file_db = null;
-
-            if(!$_SESSION['loggedin']){
-                header("Location: login.html");
-            };
-
-            if(!($userID)) {
-                header("Location: login.html");
-            }
+            echo "Member does not exist</br>";
+            echo '</br><a href="index.php">Back to Home</a>';
         }
-
     }
     catch(PDOException $e) {
         // Print PDOException message
         echo $e->getMessage();
     }
 ?>
-
 </body>
 </html>

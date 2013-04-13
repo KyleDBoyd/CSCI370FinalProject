@@ -18,6 +18,14 @@
         $groupName = $_POST['groupName'];
         $_SESSION['groupName'] = $groupName;
 
+        if(!($userID)) {
+            header("Location: login.html");
+        }   
+        
+        if(!$_SESSION['loggedin']){
+            header("Location: login.html");
+        };
+
         $stmt = $file_db->prepare('SELECT leader      
                                  FROM photoGroup
                                  WHERE name = :groupName');
@@ -45,8 +53,7 @@
         if($userID == $leader) {
             //Leader functionalities
 ?>
-Leader Page
-</br>
+<p>Leader Page</p>
 </br>
 <a href="deleteGroup.php">Delete Group</a><br/>
 
@@ -133,19 +140,6 @@ Leader Page
 </select>
 <input type="submit"/>
 </form>
-<?php
-    if(!$_SESSION['loggedin']){
-        header("Location: login.html");
-    };
-
-    $_SESSION['groupName'] = $groupName;
-
-    if(!($userID)) {
-        header("Location: login.html");
-    }
-    // Close file db connection
-    
-?>
 <br/>
 <a href="viewGroupPhoto.php">View Groups Photos</a><br/>
 <br/>

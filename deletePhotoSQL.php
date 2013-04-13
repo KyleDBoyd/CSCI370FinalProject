@@ -44,16 +44,6 @@
 
         $stmt->execute();
 
-        // Insert into userPermissionsPhoto
-        $delete = "DELETE FROM userPermissionsPhoto WHERE userID = :userID AND photoID = :photoID";
-    
-        $stmt = $file_db->prepare($delete);
-
-        $stmt->bindParam(':userID', $userID);
-        $stmt->bindParam(':photoID', $photoID);
-
-        $stmt->execute();
-
         // delete photo
         $delete = "DELETE FROM photo WHERE name = :name";
         $stmt = $file_db->prepare($delete);

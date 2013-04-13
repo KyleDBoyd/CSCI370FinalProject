@@ -15,8 +15,11 @@
         //album and photo name
         $albumName = $_SESSION['albumName'];
         $photoName = $_POST['name'];
-        
 
+        if(!$_SESSION['loggedin']){
+            header("Location: login.html");
+        };
+        
         // Get photoID
         $stmt = $file_db->prepare('SELECT photoID
                                    FROM photo
@@ -41,10 +44,6 @@
         echo '</br><a href="index.php">Back to Home</a>';
 
         $file_db = null;
-
-        if(!$_SESSION['loggedin']){
-            header("Location: login.html");
-        };
         
     }
     catch(PDOException $e) {

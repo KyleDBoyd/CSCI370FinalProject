@@ -9,7 +9,7 @@
     //Use session to grab variable from login page
     $userID = $_SESSION['userID']; 
 
-    if(!($userID)) {
+    if(!isset($userID)) {
             header("Location: login.html");
     }
 

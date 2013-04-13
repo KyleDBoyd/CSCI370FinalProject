@@ -19,6 +19,10 @@
         $photoName = $_POST['name'];
         $userID = $_SESSION['userID'];
 
+        if(!$_SESSION['loggedin']){
+            header("Location: login.html");
+        };
+
         // Get photoID
         $stmt = $file_db->prepare('SELECT photoID
                                    FROM photo
@@ -52,14 +56,8 @@
         echo "Photo added sucessfully</br>";
         echo '</br><a href="index.php">Back to Home</a>';
 
-
         // Close file db connection
-        $file_db = null;
-
-        if(!$_SESSION['loggedin']){
-            header("Location: login.html");
-        };
-
+        $file_db = null;        
     }
     catch(PDOException $e) {
         // Print PDOException message

@@ -25,13 +25,13 @@
         $genre = $_POST['genre'];
         $name = $_POST['name'];
         
-        // need to add extra error checks
 
             if ($_FILES["file"]["error"] > 0){
                 $file_db = null;
-                header("Location: insertPhotoError.html");
+                echo "Error in file";
+                exit();
             }else{
-                $imgPath = "images/" . $name;
+                $imgPath = "images/" . $name . $userID;
                 // move image into folder
                 move_uploaded_file($_FILES["file"]["tmp_name"], $imgPath);
             }
@@ -60,28 +60,9 @@
         $stmt->bindParam(':photoID', $photoID);
 
         $stmt->execute();
-
-        // Insert into userPermissionsPhoto
-        $insert = "INSERT INTO userPermissionsPhoto (userID, photoID)
-                   VALUES(:userID, :photoID)";
     
-        $stmt = $file_db->prepare($insert);
-
-        $stmt->bindParam(':userID', $userID);
-        $stmt->bindParam(':photoID', $photoID);
-
-        $stmt->execute();
-    
-       /* $query = $file_db->query('SELECT imgPath FROM photo');
-        foreach($query as $row){
-            $image = $row['imgPath'];
-            echo "<img src=\"$image\">";
-        }
-      */
         echo "Image inserted sucessfully <br/>";
 
-    
-    
         // Close file db connection
         $file_db = null;
     }

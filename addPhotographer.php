@@ -17,6 +17,13 @@
         $userID = $_SESSION['userID'];
         $level = $_POST['photographerType'];
 
+        if(!$_SESSION['loggedin']){
+            header("Location: login.html");
+        };
+
+        if(!($userID)) {
+            header("Location: login.html");
+        }
 
         $stmt = $file_db->prepare('INSERT INTO photographer (photographerID, level)  
                                    VALUES(:userID, :level)');
@@ -32,15 +39,6 @@
        
         // Close file db connection
         $file_db = null;
-
-        if(!$_SESSION['loggedin']){
-            header("Location: login.html");
-        };
-
-        if(!($userID)) {
-            header("Location: login.html");
-        }
-
     }
     catch(PDOException $e) {
         // Print PDOException message

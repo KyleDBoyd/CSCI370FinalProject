@@ -22,49 +22,50 @@ drop table if exists groupHasUser;
 drop table if exists groupHasPermissionAlbum;
 drop table if exists groupHasPermissionPhoto;
 drop table if exists albumHasPhoto;
+/*drop trigger if exists updateGroupSize;*/
 
 create table user (
     userID TEXT primary key,
-    password TEXT,
-    name TEXT,
-    dateJoined NUMERIC,
-    gender TEXT,
+    password TEXT NOT NULL,
+    name TEXT NOT NULL,
+    dateJoined NUMERIC NOT NULL,
+    gender TEXT, NOT NULL
     favoriteGenre TEXT,
-    country TEXT
+    country TEXT NOT NULL
 );
 
 create table photographer (
     photographerID TEXT,
-    level TEXT,
+    level TEXT NOT NULL,
     favLocation TEXT,
     FOREIGN KEY(photographerID) REFERENCES user(userID)    
 );
 
 create table photoGroup (
     groupID INTEGER primary key AUTOINCREMENT,
-    name TEXT UNIQUE,
-    leader TEXT,
-    size INTEGER
+    name TEXT UNIQUE NOT NULL,
+    leader TEXT NOT NULL,
+    size INTEGER NOT NULL
 );
 
 create table album (
     albumID INTEGER primary key AUTOINCREMENT,
-    type TEXT,
-    name TEXT,
-    dateCreated NUMERIC
+    type TEXT NOT NULL,
+    name TEXT NOT NULL,
+    dateCreated NUMERIC NOT NULL
 );
 
 create table photo (
     photoID INTEGER primary key AUTOINCREMENT,
-    name TEXT UNIQUE,
+    name TEXT NOT NULL,
     genre TEXT,
-    date NUMERIC,
-    imgPath TEXT 
+    date NUMERIC NOT NULL,
+    imgPath TEXT NOT NULL 
 );
 
 create table location (
     locationId INTEGER primary key AUTOINCREMENT,
-    type TEXT,
+    type TEXT NOT NULL,
     address TEXT,
     country TEXT
 );
@@ -74,19 +75,6 @@ create table userHasPhoto (
     photoId INTEGER,
     FOREIGN KEY(userID) REFERENCES user(userID),  
     FOREIGN KEY(photoID) REFERENCES photo(photoID)   
-);
-
-create table userPermissionsPhoto (
-    userID TEXT,
-    photoId INTEGER,
-    FOREIGN KEY(userID) REFERENCES user(userID),  
-    FOREIGN KEY(photoID) REFERENCES photo(photoID)   
-);
-create table userPermissionsAlbum (
-    userID TEXT,
-    albumID INTEGER,
-    FOREIGN KEY(userID) REFERENCES user(userID),  
-    FOREIGN KEY(albumID) REFERENCES album(albumID)   
 );
 
 create table photographerTakePhoto (
@@ -110,7 +98,7 @@ create table photoTakenAtLocation (
     FOREIGN KEY(locationID) REFERENCES location(locationID)
 );
 
-create table userCreateAlbum (
+create table userHasAlbum (
     userID TEXT,
     albumID INTEGER,
     FOREIGN KEY(userID) REFERENCES user(userID),
@@ -144,3 +132,11 @@ create table albumHasPhoto (
     FOREIGN KEY(albumID) REFERENCES album(albumID),
     FOREIGN KEY(photoID) REFERENCES photo(photoID)
 );
+
+/* Create Trigger NOT SURE 
+CREATE TRIGGER updateGroupSize AFTER INSERT ON
+groupHasUser 
+BEGIN
+UPDATE photoGroup SET size = size+1
+WHERE 
+*/

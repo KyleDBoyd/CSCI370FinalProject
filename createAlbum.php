@@ -16,6 +16,14 @@
 
         $userID = $_SESSION['userID'];
         $albumName = $_POST['albumName'];
+
+        if(!$_SESSION['loggedin']){
+            header("Location: login.html");
+        };
+
+        if(!($userID)) {
+            header("Location: login.html");
+        }
   
         $stmt = $file_db->prepare('INSERT INTO album (name)  
                                    VALUES(:albumName)');
@@ -33,29 +41,12 @@
         $stmt2->bindParam(':albumID', $albumID);
         $stmt2->execute();
 
-        $stmt3 = $file_db->prepare('INSERT INTO userPermissionsAlbum (userID, albumID)
-                                   VALUES(:userID, :albumID)');
-
-        $stmt3->bindParam(':userID', $userID);
-        $stmt3->bindParam(':albumID', $albumID);
-        $stmt3->execute();
-
         // Close file db connection
         $file_db = null;
 
         echo "Album created sucessfully. <br />";
 
         echo '<a href="index.php">Back to Home</a>';
-
-        if(!$_SESSION['loggedin']){
-            header("Location: login.html");
-        };
-        
-        $_SESSION['userID'] = $userID;
-
-        if(!($userID)) {
-            header("Location: login.html");
-        }
 
     }
     catch(PDOException $e) {

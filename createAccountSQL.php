@@ -19,7 +19,7 @@
         $favoriteGenre = $_POST['favoriteGenre'];
         $country = $_POST['country']; 
 
-        if(empty($userID) || empty($password) || empty($name) || empty($gender) || empty($favoriteGenre) || empty($country)){
+        if(empty($userID) || empty($password) || empty($name) || empty($gender) || empty($country)){
             // Close file db connection
             $file_db = null;
             header("Location: createAccountInvalid.html");

@@ -7,13 +7,21 @@
     try{
         //Start session
         session_start();
-        //Use session to grab variable from login page
-        $userID = $_SESSION['userID'];
         // Create (connect to) SQLite database in file
         $file_db = new PDO('sqlite:photos');
         // Set errormode to exceptions
         $file_db->setAttribute(PDO::ATTR_ERRMODE, 
                                 PDO::ERRMODE_EXCEPTION);
+
+        //Use session to grab variable from login page
+        $userID = $_SESSION['userID'];
+        if(!($userID)) {
+            header("Location: login.html");
+        }
+
+        if(!$_SESSION['loggedin']){
+            header("Location: login.html");
+        };
 
         $stmt2 = $file_db->prepare('SELECT name
                                    FROM album
@@ -24,7 +32,6 @@
 
         $stmt2->bindParam(':userID', $userID);
         $stmt2->execute();
-
 
         $stmt = $file_db->prepare('SELECT name      
                                  FROM photoGroup
@@ -37,20 +44,10 @@
         $stmt->execute();
 
     }
-
     catch(PDOException $e) {
         // Print PDOException message
         echo $e->getMessage();
     }
-    
-
-    if(!($userID)) {
-            header("Location: login.html");
-    }
-
-    if(!$_SESSION['loggedin']){
-            header("Location: login.html");
-    };
 
 ?>
     <a href="managePhoto.php">Manage Photos</a>

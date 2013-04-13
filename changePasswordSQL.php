@@ -12,6 +12,10 @@
         $userID = $_SESSION['userID'];
         $oldPassword = $_POST['oldPassword'];
         $newPassword = $_POST['newPassword'];
+    
+        if(!$_SESSION['loggedin']){
+            header("Location: login.html");
+        };
   
         $stmt = $file_db->prepare('UPDATE user                        
                                    SET password = :newPassword
@@ -25,11 +29,6 @@
 
         // Close file db connection
         $file_db = null;
-
-
-        if(!$_SESSION['loggedin']){
-            header("Location: login.html");
-        };
 
     }
     catch(PDOException $e) {

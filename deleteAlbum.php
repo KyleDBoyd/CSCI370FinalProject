@@ -37,7 +37,6 @@
         $stmt2->bindParam(':albumID', $albumID);
         $stmt2->execute();
 
-
         //Delete Album from relations
 
         $stmt3 = $file_db->prepare('DELETE
@@ -48,20 +47,11 @@
         $stmt3->execute();
 
         $stmt4 = $file_db->prepare('DELETE
-                                    FROM userCreateAlbum
+                                    FROM userHasAlbum
                                     WHERE albumID = :albumID');
 
         $stmt4->bindParam(':albumID', $albumID);
         $stmt4->execute();
-
-        $stmt5 = $file_db->prepare('DELETE
-                                    FROM userPermissionsAlbum
-                                    WHERE albumID = :albumID');
-
-        $stmt5->bindParam(':albumID', $albumID);
-        $stmt5->execute();
-
-         //Delete Group 
 
         $stmt6 = $file_db->prepare('DELETE
                                     FROM album

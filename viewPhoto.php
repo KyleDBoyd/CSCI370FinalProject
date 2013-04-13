@@ -14,11 +14,9 @@
 
         session_start();
         $userID = $_SESSION['userID']; 
-
         if(!($userID)) {
             header("Location: login.html");
         }
-
         if(!$_SESSION['loggedin']){
             header("Location: login.html");
         };

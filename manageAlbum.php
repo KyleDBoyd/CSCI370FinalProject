@@ -17,6 +17,10 @@
         $_SESSION['albumName'] = $albumName;
         $userID = $_SESSION['userID'];
 
+        if(!isset($userID)) {
+            header("Location: login.html");
+        }
+
         if(!$_SESSION['loggedin']){
             header("Location: login.html");
         };
@@ -29,9 +33,9 @@
 
 ?>
 <form action="addUserAlbum.php" method="post">
-    Add Member <br/>
-    Member's Username:<input name ="memberName" type ="text" />
-    <input type="submit"/>
+Add Member <br/>
+Member's Username:<input name ="memberName" type ="text" />
+<input type="submit"/>
 </form>
 <br/>
 <form action="addPhotoAlbum.php" method="post">
@@ -61,16 +65,16 @@ Select Photo to Delete <br/>
 <form action="deletePhotoAlbum.php" method="post">
 <select name="name" id="name">
 <?php
-$stmt = $file_db->prepare('SELECT name      
-                             FROM photo
-                             WHERE photoID in 
-                                  (SELECT photoID
-                                   FROM albumHasPhoto
-                                   WHERE albumID in
-                                       (SELECT albumID
-                                        FROM album
-                                        WHERE :albumName = name))');
-$stmt->bindParam(':albumName', $albumName);
+    $stmt = $file_db->prepare('SELECT name      
+                                 FROM photo
+                                 WHERE photoID in 
+                                      (SELECT photoID
+                                       FROM albumHasPhoto
+                                       WHERE albumID in
+                                           (SELECT albumID
+                                            FROM album
+                                            WHERE :albumName = name))');
+    $stmt->bindParam(':albumName', $albumName);
     $stmt->execute();
     while($row = $stmt->fetch()){
         $photoName = $row['name'];  
