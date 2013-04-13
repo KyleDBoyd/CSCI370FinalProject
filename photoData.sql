@@ -84,35 +84,9 @@ INSERT INTO userHasPhoto VALUES('jane',11);
 INSERT INTO userHasPhoto VALUES('jane',10);
 INSERT INTO userHasPhoto VALUES('jane',19);
 
-INSERT INTO userPermissionsPhoto VALUES('bob',1);
-INSERT INTO userPermissionsPhoto VALUES('bob',2);
-INSERT INTO userPermissionsPhoto VALUES('bob',3);
-INSERT INTO userPermissionsPhoto VALUES('bob',4);
-INSERT INTO userPermissionsPhoto VALUES('bob',5);
-INSERT INTO userPermissionsPhoto VALUES('bob',6);
-INSERT INTO userPermissionsPhoto VALUES('bob',7);
-INSERT INTO userPermissionsPhoto VALUES('chad47',12);
-INSERT INTO userPermissionsPhoto VALUES('chad47',4);
-INSERT INTO userPermissionsPhoto VALUES('chad47',17);
-INSERT INTO userPermissionsPhoto VALUES('chad47',18);
-INSERT INTO userPermissionsPhoto VALUES('chad47',19);
-INSERT INTO userPermissionsPhoto VALUES('george',20);
-INSERT INTO userPermissionsPhoto VALUES('george',11);
-INSERT INTO userPermissionsPhoto VALUES('george',23);
-INSERT INTO userPermissionsPhoto VALUES('george',18);
-INSERT INTO userPermissionsPhoto VALUES('george',14);
-INSERT INTO userPermissionsPhoto VALUES('george',13);
-INSERT INTO userPermissionsPhoto VALUES('jane',11);
-INSERT INTO userPermissionsPhoto VALUES('jane',10);
-INSERT INTO userPermissionsPhoto VALUES('jane',19);
-
-INSERT INTO userCreateAlbum VALUES('bob',1);
-INSERT INTO userCreateAlbum VALUES('jane',2);
-INSERT INTO userCreateAlbum VALUES('chad47',3);
-
-INSERT INTO userPermissionsAlbum VALUES('bob',1);
-INSERT INTO userPermissionsAlbum VALUES('jane',2);
-INSERT INTO userPermissionsAlbum VALUES('chad47',3);
+INSERT INTO userHasAlbum VALUES('bob',1);
+INSERT INTO userHasAlbum VALUES('jane',2);
+INSERT INTO userHasAlbum VALUES('chad47',3);
     
 INSERT INTO groupHasUser VALUES (1,'bob');
 INSERT INTO groupHasUser VALUES (1,'chad47');

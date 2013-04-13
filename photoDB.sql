@@ -12,12 +12,10 @@ drop table if exists album;
 drop table if exists photo;
 drop table if exists location;
 drop table if exists userHasPhoto;
-drop table if exists userPermissionsPhoto;
-drop table if exists userPermissionsAlbum;
 drop table if exists photographerTakePhoto;
 drop table if exists photographerFrequentLocation;
 drop table if exists photoTakenAtLocation;
-drop table if exists userCreateAlbum;
+drop table if exists userHasAlbum;
 drop table if exists groupHasUser;
 drop table if exists groupHasPermissionAlbum;
 drop table if exists groupHasPermissionPhoto;
@@ -29,7 +27,7 @@ create table user (
     password TEXT NOT NULL,
     name TEXT NOT NULL,
     dateJoined NUMERIC NOT NULL,
-    gender TEXT, NOT NULL
+    gender TEXT NOT NULL, 
     favoriteGenre TEXT,
     country TEXT NOT NULL
 );
