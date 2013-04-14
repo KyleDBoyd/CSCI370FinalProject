@@ -98,6 +98,9 @@
     <input type="submit">
     </form>
 
+    <a href="manageLocation.php">Add Location</a>
+    <br/>
+
     <a href="accountSettings.php">Account Settings</a>
     <br/>
     <br/>
