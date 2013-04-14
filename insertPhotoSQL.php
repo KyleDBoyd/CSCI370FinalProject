@@ -24,6 +24,7 @@
         };
         $genre = $_POST['genre'];
         $name = $_POST['name'];
+        $type = $_POST['type'];
         
 
             if ($_FILES["file"]["error"] > 0){
@@ -61,6 +62,27 @@
 
         $stmt->execute();
     
+        // get locationID
+        $stmt = $file_db->prepare('SELECT locationID
+                                   FROM location
+                                   WHERE type = :type');
+
+        $stmt->bindParam(':type',$type);
+        $stmt->execute();
+
+        $row = $stmt->fetch();
+        $locationID = $row['locationID'];  
+
+        $insert = "INSERT INTO photoTakenAtLocation (photoID, locationID)
+                   VALUES(:photoID, :locationID)";
+    
+        $stmt = $file_db->prepare($insert);
+
+        $stmt->bindParam(':photoID', $photoID);
+        $stmt->bindParam(':locationID', $locationID);
+
+        $stmt->execute();        
+
         echo "Image inserted sucessfully <br/>";
 
         // Close file db connection

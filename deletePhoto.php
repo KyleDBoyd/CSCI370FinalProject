@@ -16,7 +16,7 @@
             header("Location: login.html");
         }
 
-     if(!$_SESSION['loggedin']){
+        if(!$_SESSION['loggedin']){
             header("Location: login.html");
         };
         // Create (connect to) SQLite database in file
