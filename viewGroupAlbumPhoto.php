@@ -13,7 +13,7 @@
                                 PDO::ERRMODE_EXCEPTION);
 
         session_start();
-        $albumName = $_SESSION['albumName'];
+        $albumName = $_POST['albumName'];
 
         if(!$_SESSION['loggedin']){
             header("Location: login.html");

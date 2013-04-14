@@ -24,6 +24,11 @@ INSERT INTO photoGroup VALUES(1,'bestGroupEver','bob',1);
 INSERT INTO photoGroup VALUES(2,'Group1','chad47',1);
 INSERT INTO photoGroup VALUES(3,'Photographers','george',1);
 
+/* Adding the user to the group they created */
+INSERT INTO groupHasUser VALUES (1,'bob');
+INSERT INTO groupHasUser VALUES (2,'chad47');
+INSERT INTO groupHasUser VALUES (3,'george');
+
 INSERT INTO album VALUES(1,'beach','myBeachAlbum',5);
 INSERT INTO album VALUES(2,'citypics','myCityAlbum',5);
 INSERT INTO album VALUES(3,'town','myTownAlbum',5);
@@ -87,10 +92,10 @@ INSERT INTO userHasPhoto VALUES('jane',19);
 INSERT INTO userHasAlbum VALUES('bob',1);
 INSERT INTO userHasAlbum VALUES('jane',2);
 INSERT INTO userHasAlbum VALUES('chad47',3);
-    
-INSERT INTO groupHasUser VALUES (1,'bob');
-INSERT INTO groupHasUser VALUES (1,'chad47');
-INSERT INTO groupHasUser VALUES (1,'kyle');
+
+INSERT INTO groupHasUser VALUES (2,'chad47');
+INSERT INTO groupHasUser VALUES (3,'george');
+INSERT INTO groupHasUser VALUES (3,'jane');    
 INSERT INTO groupHasUser VALUES (2,'chad47');
 INSERT INTO groupHasUser VALUES (3,'george');
 INSERT INTO groupHasUser VALUES (3,'jane');

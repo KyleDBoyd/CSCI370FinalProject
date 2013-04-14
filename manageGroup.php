@@ -56,13 +56,12 @@
 <p>Leader Page</p>
 </br>
 <a href="deleteGroup.php">Delete Group</a><br/>
-
 <form action="addUserGroup.php" method="post">
     Add Member <br/>
     Member's Username:<input name ="memberName" type ="text" />
     <input type="submit"/>
 </form>
-
+<p>Add Photo</p>
 <form action="addPhotoGroup.php" method="post">
 <select name="name" id="name">
 <?php
@@ -86,6 +85,7 @@
 <input type="submit">
 </form>
 <br/>
+<p>Delete Photo</p>
 <form action="deletePhotoGroup.php" method="post">
 <select name="name" id="name">
 <?php
@@ -108,31 +108,36 @@
 <?php
     }
 ?>
-
+<input type="submit"/>
+</form>
 <?php
+
     } else {
         //Member functionalities
         echo "Member Page</br>";
     }
-    
-    echo "Select Album to view Photo";
-    $stmt = $file_db->prepare('SELECT name      
-                             FROM album
-                             WHERE albumID in 
-                                  (SELECT albumID
-                                   FROM groupHasPermissionAlbum
-                                   WHERE :groupID = groupID)');
-
-    $stmt->bindParam(':groupID', $groupID);
-    $stmt->execute();
 ?>
+<br/>
+<p>View Album</p>
 <form action="viewGroupAlbumPhoto.php" method="post">
 <select name="albumName" id="albumName">
 <?php
+    $stmt = $file_db->prepare('SELECT name
+                               FROM album
+                               WHERE albumID in
+                                   (SELECT albumID
+                                    FROM grouphasPermissionAlbum
+                                    where groupID in
+                                        (SELECT groupID
+                                         FROM photoGroup
+                                         WHERE :groupName = name))');
+
+    $stmt->bindParam(':groupName', $groupName);
+    $stmt->execute();
     while($row = $stmt->fetch()){
-    $albumName = $row['name'];  
+        $photoName = $row['name'];
 ?>
-<option value="<?= $albumName; ?>"><?= $albumName; ?></option>
+<option value="<?= $photoName; ?>"><?= $photoName; ?></option>
 <?php
     }
     $file_db = null;
@@ -144,6 +149,5 @@
 <a href="viewGroupPhoto.php">View Groups Photos</a><br/>
 <br/>
 <a href="index.php">Back to Home</a><br/>
-
 </body>
 </html>

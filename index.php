@@ -27,7 +27,7 @@
                                    FROM album
                                    WHERE albumID in
                                       (SELECT albumID
-                                       FROM userPermissionsAlbum
+                                       FROM userHasAlbum
                                        WHERE :userID = userID)');
 
         $stmt2->bindParam(':userID', $userID);

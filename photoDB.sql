@@ -43,7 +43,7 @@ create table photoGroup (
     groupID INTEGER primary key AUTOINCREMENT,
     name TEXT UNIQUE NOT NULL,
     leader TEXT NOT NULL,
-    size INTEGER NOT NULL
+    size INTEGER
 );
 
 create table album (
