@@ -22,8 +22,8 @@
             header("Location: login.html");
         };
   
-        $stmt = $file_db->prepare('INSERT INTO photoGroup (name, leader)  
-                                   VALUES(:groupName, :leader)');
+        $stmt = $file_db->prepare('INSERT INTO photoGroup (name, leader, size)  
+                                   VALUES(:groupName, :leader, 0)');
 
         $stmt->bindParam(':leader', $userID);
         $stmt->bindParam(':groupName', $groupName);

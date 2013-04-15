@@ -20,7 +20,7 @@ drop table if exists groupHasUser;
 drop table if exists groupHasPermissionAlbum;
 drop table if exists groupHasPermissionPhoto;
 drop table if exists albumHasPhoto;
-/*drop trigger if exists updateGroupSize;*/
+drop trigger if exists updateGroupSize;
 
 create table user (
     userID TEXT primary key,
@@ -43,7 +43,7 @@ create table photoGroup (
     groupID INTEGER primary key AUTOINCREMENT,
     name TEXT UNIQUE NOT NULL,
     leader TEXT NOT NULL,
-    size INTEGER
+    size INTEGER NOT NULL
 );
 
 create table album (
@@ -58,7 +58,7 @@ create table photo (
     name TEXT NOT NULL,
     genre TEXT,
     date NUMERIC NOT NULL,
-    imgPath TEXT NOT NULL 
+    imgPath TEXT UNIQUE NOT NULL 
 );
 
 create table location (
@@ -131,10 +131,10 @@ create table albumHasPhoto (
     FOREIGN KEY(photoID) REFERENCES photo(photoID)
 );
 
-/* Create Trigger NOT SURE 
-CREATE TRIGGER updateGroupSize AFTER INSERT ON
-groupHasUser 
+CREATE TRIGGER updateGroupSize AFTER
+INSERT ON groupHasUser 
 BEGIN
 UPDATE photoGroup SET size = size+1
-WHERE 
-*/
+WHERE groupID = new.groupID;
+END;
+
