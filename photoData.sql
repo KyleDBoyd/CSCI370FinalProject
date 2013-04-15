@@ -67,6 +67,14 @@ INSERT INTO location (type, address, country) VALUES('mall','9123 xiao st','chin
 INSERT INTO location (type, address, country) VALUES('museum','9123 french st','france');
 INSERT INTO location (type, address, country) VALUES('mountains','9123 mountain st','russia');
 
+INSERT INTO photoTakenAtLocation VALUES(1,1);
+INSERT INTO photoTakenAtLocation VALUES(2,1);
+INSERT INTO photoTakenAtLocation VALUES(3,1);
+INSERT INTO photoTakenAtLocation VALUES(4,1);
+INSERT INTO photoTakenAtLocation VALUES(5,1);
+INSERT INTO photoTakenAtLocation VALUES(1,2);
+INSERT INTO photoTakenAtLocation VALUES(2,2);
+
 INSERT INTO userHasPhoto VALUES('bob',1);
 INSERT INTO userHasPhoto VALUES('bob',2);
 INSERT INTO userHasPhoto VALUES('bob',3);
