@@ -1,9 +1,9 @@
-Select type
-from location
-where locationID in
-    (SELECT locationID
-     FROM photoTakenAtLocation
-     WHERE photoID in
-     (SELECT photoID
-      FROM albumHasPhoto))
-ORDER BY type;
+
+
+SELECT type, COUNT(*) as typeCount
+FROM location
+JOIN (
+    SELECT * FROM photoTakenAtLocation JOIN AlbumHasPhoto USING (photoID)
+) USING (locationID)
+GROUP BY type
+ORDER BY typeCount DESC;

@@ -72,8 +72,15 @@ INSERT INTO photoTakenAtLocation VALUES(2,1);
 INSERT INTO photoTakenAtLocation VALUES(3,1);
 INSERT INTO photoTakenAtLocation VALUES(4,1);
 INSERT INTO photoTakenAtLocation VALUES(5,1);
-INSERT INTO photoTakenAtLocation VALUES(1,2);
-INSERT INTO photoTakenAtLocation VALUES(2,2);
+INSERT INTO photoTakenAtLocation VALUES(6,2);
+INSERT INTO photoTakenAtLocation VALUES(7,2);
+INSERT INTO photoTakenAtLocation VALUES(8,2);
+INSERT INTO photoTakenAtLocation VALUES(9,3);
+INSERT INTO photoTakenAtLocation VALUES(10,3);
+INSERT INTO photoTakenAtLocation VALUES(11,3);
+INSERT INTO photoTakenAtLocation VALUES(12,3);
+INSERT INTO photoTakenAtLocation VALUES(13,3);
+INSERT INTO photoTakenAtLocation VALUES(14,3);
 
 INSERT INTO userHasPhoto VALUES('bob',1);
 INSERT INTO userHasPhoto VALUES('bob',2);
@@ -156,6 +163,5 @@ INSERT INTO albumHasPhoto VALUES (3,4);
 INSERT INTO albumHasPhoto VALUES (3,5);
 INSERT INTO albumHasPhoto VALUES (3,12);
 INSERT INTO albumHasPhoto VALUES (3,14);
-
 
 

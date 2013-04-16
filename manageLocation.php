@@ -33,6 +33,9 @@
     }
 
 ?>
+<a href="queryLocation.php">Popular Locations</a>
+<br/>
+<br/>
 <form action="addLocation.php" method="post">
 Add Location <br/> <br/>
 Location Type:<input name ="locationType" type ="text" />
